@@ -1,5 +1,9 @@
 # All the generate file extensions to ignore in the repo
 
+# Ignore the fpga
+
+fgpa_top/
+
 *.xci
 *.v
 *.vhdl
