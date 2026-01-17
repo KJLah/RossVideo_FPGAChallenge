@@ -1,0 +1,10 @@
+# All the generate file extensions to ignore in the repo
+
+*.xci
+*.v
+*.vhdl
+*.dcp
+
+
+# Ignore the powerpoint
+*.ppt
