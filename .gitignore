@@ -4,15 +4,18 @@
 
 fpga_top/
 
-*.xci
-*.v
-*.vhdl
-*.dcp
-*.xdc
-*.wdf
-*.wpc
+*.pb
 *.xml
-*.vh
+*.dcp
+# *.xci
+# *.v
+# *.vhdl
+# *.dcp
+# *.xdc
+# *.wdf
+# *.wpc
+# *.xml
+# *.vh
 
 # Ignore the powerpoint
 *.ppt
