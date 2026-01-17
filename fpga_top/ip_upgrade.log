@@ -1,0 +1,37 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2025.2 (win64) Build 6299465 Fri Nov 14 19:35:11 GMT 2025
+| Date         : Sat Dec 20 23:27:09 2025
+| Host         : DESKTOP-E4KLNJU running 64-bit major release  (build 9200)
+| Command      : upgrade_ip
+| Device       : xczu5ev-fbvb900-2-e
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'xcv_hdmi'
+
+1. Summary
+----------
+
+SUCCESS in the upgrade of xcv_hdmi (xilinx.com:ip:gtwizard_ultrascale:1.7) from (Rev. 20) to (Rev. 22)
+
+
+
+
+
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2025.2 (win64) Build 6299465 Fri Nov 14 19:35:11 GMT 2025
+| Date         : Sat Dec 20 23:26:39 2025
+| Host         : DESKTOP-E4KLNJU running 64-bit major release  (build 9200)
+| Command      : upgrade_ip
+| Device       : xczu5ev-fbvb900-2-e
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'clk_125m_pll'
+
+1. Summary
+----------
+
+SUCCESS in the upgrade of clk_125m_pll (xilinx.com:ip:clk_wiz:6.0) from (Rev. 16) to (Rev. 17)
+
