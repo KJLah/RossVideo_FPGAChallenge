@@ -1,0 +1,79 @@
+-------------------------------------
+| Tool Version : Vivado v.2025.2
+| Date         : Sat Jan 17 19:27:47 2026
+| Host         : Ahmed_Laptop
+| Design       : design_1
+| Device       : xczu5ev-fbvb900-2-E-
+-------------------------------------
+
+For more information on clockInfo.txt clock routing debug file see https://support.xilinx.com/s/article/000035660?language=en_US
+
+***********************
+Running Pre-CRP Checker
+***********************
+Number of global clocks: 7
+	Number of BUFGCE: 3
+	Number of BUFGCE_HDIO: 0
+	Number of BUFG_CTRL: 0
+	Number of BUFGCE_DIV: 0
+	Number of BUFG_GT: 4
+	Number of BUFG_PS: 0
+	Number of BUFG_FABRIC: 0
+	Running suboptimal placement checker for 4 BUFG_GT clocks (and their loads)...
+		No sub-optimality found
+		No sub-optimality found
+		No sub-optimality found
+		No sub-optimality found
+	Running suboptimal placement checker for 7 clocks (and their loads) which do not have the CLOCK_LOW_FANOUT property but have a fanout less than 2000...
+Pre-CRP Checker took 0 secs
+
+**************************************
+Clock Nets/Source Overview (CRP Input)
+**************************************
+Clock 1: clk_125m_pll/inst/clk_out1
+	Clock source type: BUFGCE
+	Clock source region: X1Y3
+	Clock regions with locked loads: X2Y0 
+	initial rect ((1, 0), (2, 3))
+
+Clock 2: xcvr_hdmi/inst/gen_gtwizard_gthe4_top.xcv_hdmi_gtwizard_gthe4_inst/gen_gtwizard_gthe4.gen_tx_user_clocking_internal.gen_single_instance.gtwiz_userclk_tx_inst/gtwiz_userclk_tx_usrclk2_out[0]
+	Clock source type: BUFG_GT
+	Clock source region: X2Y0
+	Clock regions with locked loads: X2Y0 
+	initial rect ((1, 0), (2, 2))
+
+Clock 3: dbg_hub/inst/BSCANID.u_xsdbm_id/itck_i
+	Clock source type: BUFGCE
+	Clock source region: X1Y2
+	initial rect ((1, 2), (2, 2))
+
+Clock 4: clk_25m
+	Clock source type: BUFGCE
+	Clock source region: X1Y3
+	Clock regions with locked loads: X1Y3 
+	initial rect ((1, 2), (2, 3))
+
+Clock 5: xcvr_hdmi/inst/gen_gtwizard_gthe4_top.xcv_hdmi_gtwizard_gthe4_inst/gen_gtwizard_gthe4.gen_cpll_cal_gthe4.gen_cpll_cal_inst[0].gen_inst_cpll_cal.gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal_inst/gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal_rx_i/gen_cal_rx_en.rxoutclkmon
+	Clock source type: BUFG_GT
+	Clock source region: X2Y0
+	initial rect ((2, 0), (2, 0))
+
+Clock 6: refclk_hdmi_tx_bufg
+	Clock source type: BUFG_GT
+	Clock source region: X2Y0
+	initial rect ((1, 0), (2, 2))
+
+Clock 7: xcvr_hdmi/inst/gen_gtwizard_gthe4_top.xcv_hdmi_gtwizard_gthe4_inst/gen_gtwizard_gthe4.gen_rx_user_clocking_internal.gen_single_instance.gtwiz_userclk_rx_inst/gtwiz_userclk_rx_usrclk2_out[0]
+	Clock source type: BUFG_GT
+	Clock source region: X2Y0
+	Clock regions with locked loads: X2Y0 
+	initial rect ((2, 0), (2, 0))
+
+
+
+*****************************
+Clocks With User Constraints:
+*****************************
+No clocks with user constraints found
+
+

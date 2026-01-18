@@ -1,7 +1,7 @@
 # All the generate file extensions to ignore in the repo
 
 # Ignore the fpga folder
-fpga_top/
+# fpga_top/
 
 *.pb
 *.xml

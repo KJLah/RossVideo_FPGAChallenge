@@ -1,0 +1,24 @@
+#-----------------------------------------------------------
+# Vivado v2025.2 (64-bit)
+# SW Build 6299465 on Fri Nov 14 19:35:11 GMT 2025
+# IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
+# SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
+# Start of session at: Sat Jan 17 14:15:40 2026
+# Process ID         : 22884
+# Current directory  : C:/Users/ahmed/Downloads/uOttaHack_FPGA/fpga_top/fpga_top.runs/xcv_hdmi_synth_1
+# Command line       : vivado.exe -log xcv_hdmi.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source xcv_hdmi.tcl
+# Log file           : C:/Users/ahmed/Downloads/uOttaHack_FPGA/fpga_top/fpga_top.runs/xcv_hdmi_synth_1/xcv_hdmi.vds
+# Journal file       : C:/Users/ahmed/Downloads/uOttaHack_FPGA/fpga_top/fpga_top.runs/xcv_hdmi_synth_1\vivado.jou
+# Running On         : Ahmed_Laptop
+# Platform           : Windows Server 2016 or Windows 10
+# Operating System   : 26100
+# Processor Detail   : 11th Gen Intel(R) Core(TM) i7-1195G7 @ 2.90GHz
+# CPU Frequency      : 2918 MHz
+# CPU Physical cores : 4
+# CPU Logical cores  : 8
+# Host memory        : 16804 MB
+# Swap memory        : 9126 MB
+# Total Virtual      : 25931 MB
+# Available Virtual  : 8291 MB
+#-----------------------------------------------------------
+source xcv_hdmi.tcl -notrace

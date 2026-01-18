@@ -1,0 +1,200 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+-------------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version     : Vivado v.2025.2 (win64) Build 6299465 Fri Nov 14 19:35:11 GMT 2025
+| Date             : Sat Jan 17 19:30:35 2026
+| Host             : Ahmed_Laptop running 64-bit major release  (build 9200)
+| Command          : report_power -file fpga_top_power_routed.rpt -pb fpga_top_power_summary_routed.pb -rpx fpga_top_power_routed.rpx
+| Design           : fpga_top
+| Device           : xczu5ev-fbvb900-2-e
+| Design State     : routed
+| Grade            : extended
+| Process          : typical
+| Characterization : Production
+-------------------------------------------------------------------------------------------------------------------------------------------------
+
+Power Report
+
+Table of Contents
+-----------------
+1. Summary
+1.1 On-Chip Components
+1.2 Power Supply Summary
+1.3 Confidence Level
+2. Settings
+2.1 Environment
+2.2 Clock Constraints
+3. Detailed Reports
+3.1 By Hierarchy
+
+1. Summary
+----------
+
++--------------------------+--------------+
+| Total On-Chip Power (W)  | 1.251        |
+| Design Power Budget (W)  | Unspecified* |
+| Power Budget Margin (W)  | NA           |
+| Dynamic (W)              | 0.855        |
+| Device Static (W)        | 0.396        |
+| Effective TJA (C/W)      | 1.4          |
+| Max Ambient (C)          | 98.3         |
+| Junction Temperature (C) | 26.7         |
+| Confidence Level         | Medium       |
+| Setting File             | ---          |
+| Simulation Activity File | ---          |
+| Design Nets Matched      | NA           |
++--------------------------+--------------+
+* Specify Design Power Budget using, set_operating_conditions -design_power_budget <value in Watts>
+
+
+1.1 On-Chip Components
+----------------------
+
++--------------------------+-----------+----------+-----------+-----------------+
+| On-Chip                  | Power (W) | Used     | Available | Utilization (%) |
++--------------------------+-----------+----------+-----------+-----------------+
+| Clocks                   |     0.019 |       16 |       --- |             --- |
+| CLB Logic                |     0.008 |     6404 |       --- |             --- |
+|   LUT as Logic           |     0.007 |     2362 |    117120 |            2.02 |
+|   CARRY8                 |    <0.001 |      206 |     14640 |            1.41 |
+|   Register               |    <0.001 |     2742 |    234240 |            1.17 |
+|   LUT as Distributed RAM |    <0.001 |       20 |     57600 |            0.03 |
+|   LUT as Shift Register  |    <0.001 |       14 |     57600 |            0.02 |
+|   Others                 |     0.000 |      279 |       --- |             --- |
+| Signals                  |     0.006 |     4512 |       --- |             --- |
+| MMCM                     |     0.097 |        0 |       --- |             --- |
+| I/O                      |     0.010 |       14 |       204 |            6.86 |
+| GTH                      |     0.715 |        4 |        16 |           25.00 |
+| Static Power             |     0.396 |          |           |                 |
+| Total                    |     1.251 |          |           |                 |
++--------------------------+-----------+----------+-----------+-----------------+
+
+
+1.2 Power Supply Summary
+------------------------
+
++------------------+-------------+-----------+-------------+------------+-------------+-------------+------------+
+| Source           | Voltage (V) | Total (A) | Dynamic (A) | Static (A) | Powerup (A) | Budget (A)  | Margin (A) |
++------------------+-------------+-----------+-------------+------------+-------------+-------------+------------+
+| Vccint           |       0.850 |     0.200 |       0.120 |      0.080 |       NA    | Unspecified | NA         |
+| Vccint_io        |       0.850 |     0.037 |       0.001 |      0.036 |       NA    | Unspecified | NA         |
+| Vccbram          |       0.850 |     0.001 |       0.000 |      0.001 |       NA    | Unspecified | NA         |
+| Vccaux           |       1.800 |     0.130 |       0.054 |      0.077 |       NA    | Unspecified | NA         |
+| Vccaux_io        |       1.800 |     0.036 |       0.005 |      0.031 |       NA    | Unspecified | NA         |
+| Vcco33           |       3.300 |     0.007 |       0.000 |      0.007 |       NA    | Unspecified | NA         |
+| Vcco25           |       2.500 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
+| Vcco18           |       1.800 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
+| Vcco15           |       1.500 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
+| Vcco135          |       1.350 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
+| Vcco12           |       1.200 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
+| Vcco10           |       1.000 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
+| Vccadc           |       1.800 |     0.008 |       0.000 |      0.008 |       NA    | Unspecified | NA         |
+| VCC_PSINTFP      |       0.850 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
+| VCC_PSINTLP      |       0.850 |     0.005 |       0.000 |      0.005 |       NA    | Unspecified | NA         |
+| VPS_MGTRAVCC     |       0.850 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
+| VCC_PSINTFP_DDR  |       0.850 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
+| VCC_PSPLL        |       1.200 |     0.002 |       0.000 |      0.002 |       NA    | Unspecified | NA         |
+| VPS_MGTRAVTT     |       1.800 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
+| VCCO_PSDDR_504   |       1.200 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
+| VCC_PSAUX        |       1.800 |     0.002 |       0.000 |      0.002 |       NA    | Unspecified | NA         |
+| VCC_PSBATT       |       1.200 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
+| VCC_PSDDR_PLL    |       1.800 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
+| VCCO_PSIO0_500   |       3.300 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
+| VCCO_PSIO1_501   |       3.300 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
+| VCCO_PSIO2_502   |       3.300 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
+| VCCO_PSIO3_503   |       3.300 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
+| VCC_PSADC        |       1.800 |     0.002 |       0.000 |      0.002 |       NA    | Unspecified | NA         |
+| VCCINT_VCU       |       0.900 |     0.026 |       0.000 |      0.026 |       NA    | Unspecified | NA         |
+| VMGTAVCC (GTH)   |       0.900 |     0.158 |       0.150 |      0.008 |       NA    | Unspecified | NA         |
+| VMGTAVTT (GTH)   |       1.200 |     0.426 |       0.407 |      0.018 |       NA    | Unspecified | NA         |
+| VMGTVCCAUX (GTH) |       1.800 |     0.012 |       0.012 |      0.000 |       NA    | Unspecified | NA         |
++------------------+-------------+-----------+-------------+------------+-------------+-------------+------------+
+
+
+1.3 Confidence Level
+--------------------
+
++-----------------------------+------------+-------------------------------------------------------+------------------------------------------------------------------------------------------------------------+
+| User Input Data             | Confidence | Details                                               | Action                                                                                                     |
++-----------------------------+------------+-------------------------------------------------------+------------------------------------------------------------------------------------------------------------+
+| Design implementation state | High       | Design is routed                                      |                                                                                                            |
+| Clock nodes activity        | High       | User specified more than 95% of clocks                |                                                                                                            |
+| I/O nodes activity          | Medium     | More than 5% of inputs are missing user specification | Provide missing input activity with simulation results or by editing the "By Resource Type -> I/Os" view   |
+| Internal nodes activity     | Medium     | User specified less than 25% of internal nodes        | Provide missing internal nodes activity with simulation results or by editing the "By Resource Type" views |
+| Device models               | High       | Device models are Production                          |                                                                                                            |
+|                             |            |                                                       |                                                                                                            |
+| Overall confidence level    | Medium     |                                                       |                                                                                                            |
++-----------------------------+------------+-------------------------------------------------------+------------------------------------------------------------------------------------------------------------+
+
+
+2. Settings
+-----------
+
+2.1 Environment
+---------------
+
++-----------------------+--------------------------+
+| Ambient Temp (C)      | 25.0                     |
+| ThetaJA (C/W)         | 1.4                      |
+| Airflow (LFM)         | 250                      |
+| Heat Sink             | medium (Medium Profile)  |
+| ThetaSA (C/W)         | 2.0                      |
+| Board Selection       | medium (10"x10")         |
+| # of Board Layers     | 12to15 (12 to 15 Layers) |
+| Board Temperature (C) | 25.0                     |
++-----------------------+--------------------------+
+
+
+2.2 Clock Constraints
+---------------------
+
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------+
+| Clock                                                                                                                                                                                                                                                                                    | Domain                                                                                                                                                                                                                                                                    | Constraint (ns) |
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------+
+| GTHE4_CHANNEL_RXOUTCLKPCS[0]                                                                                                                                                                                                                                                             | xcvr_hdmi/inst/gen_gtwizard_gthe4_top.xcv_hdmi_gtwizard_gthe4_inst/gen_gtwizard_gthe4.gen_channel_container[0].gen_enabled_channel.gthe4_channel_wrapper_inst/channel_inst/GTHE4_CHANNEL_RXOUTCLKPCS[0]                                                                   |             6.7 |
+| GTHE4_CHANNEL_RXOUTCLKPCS[1]                                                                                                                                                                                                                                                             | xcvr_hdmi/inst/gen_gtwizard_gthe4_top.xcv_hdmi_gtwizard_gthe4_inst/gen_gtwizard_gthe4.gen_channel_container[0].gen_enabled_channel.gthe4_channel_wrapper_inst/channel_inst/GTHE4_CHANNEL_RXOUTCLKPCS[1]                                                                   |             6.7 |
+| GTHE4_CHANNEL_RXOUTCLKPCS[2]                                                                                                                                                                                                                                                             | xcvr_hdmi/inst/gen_gtwizard_gthe4_top.xcv_hdmi_gtwizard_gthe4_inst/gen_gtwizard_gthe4.gen_channel_container[0].gen_enabled_channel.gthe4_channel_wrapper_inst/channel_inst/GTHE4_CHANNEL_RXOUTCLKPCS[2]                                                                   |             6.7 |
+| GTHE4_CHANNEL_RXOUTCLKPCS[3]                                                                                                                                                                                                                                                             | xcvr_hdmi/inst/gen_gtwizard_gthe4_top.xcv_hdmi_gtwizard_gthe4_inst/gen_gtwizard_gthe4.gen_channel_container[0].gen_enabled_channel.gthe4_channel_wrapper_inst/channel_inst/GTHE4_CHANNEL_RXOUTCLKPCS[3]                                                                   |             6.7 |
+| GTHE4_CHANNEL_RXOUTCLK[0]                                                                                                                                                                                                                                                                | xcvr_hdmi/inst/gen_gtwizard_gthe4_top.xcv_hdmi_gtwizard_gthe4_inst/gen_gtwizard_gthe4.gen_channel_container[0].gen_enabled_channel.gthe4_channel_wrapper_inst/channel_inst/GTHE4_CHANNEL_RXOUTCLK[0]                                                                      |             6.7 |
+| GTHE4_CHANNEL_TXOUTCLK[0]                                                                                                                                                                                                                                                                | xcvr_hdmi/inst/gen_gtwizard_gthe4_top.xcv_hdmi_gtwizard_gthe4_inst/gen_gtwizard_gthe4.gen_channel_container[0].gen_enabled_channel.gthe4_channel_wrapper_inst/channel_inst/GTHE4_CHANNEL_TXOUTCLK[0]                                                                      |             6.7 |
+| clk_25m                                                                                                                                                                                                                                                                                  | clk_25m                                                                                                                                                                                                                                                                   |            40.0 |
+| clk_25m                                                                                                                                                                                                                                                                                  | pin_hpio_refclk_i_p                                                                                                                                                                                                                                                       |            40.0 |
+| clk_out1_clk_125m_pll                                                                                                                                                                                                                                                                    | clk_125m_pll/inst/clk_out1_clk_125m_pll                                                                                                                                                                                                                                   |             8.0 |
+| dbg_hub/inst/BSCANID.u_xsdbm_id/SWITCH_N_EXT_BSCAN.bscan_inst/SERIES7_BSCAN.bscan_inst/INTERNAL_TCK                                                                                                                                                                                      | dbg_hub/inst/BSCANID.u_xsdbm_id/SWITCH_N_EXT_BSCAN.bscan_inst/DRCK                                                                                                                                                                                                        |            50.0 |
+| hdmi_tx_clk_xcvr                                                                                                                                                                                                                                                                         | pin_hdmi_tx_clk_i_p                                                                                                                                                                                                                                                       |             6.7 |
+| qpll0outclk_out[0]                                                                                                                                                                                                                                                                       | xcvr_hdmi/inst/gen_gtwizard_gthe4_top.xcv_hdmi_gtwizard_gthe4_inst/gen_gtwizard_gthe4.gen_common.gen_common_container[0].gen_enabled_common.gthe4_common_wrapper_inst/common_inst/qpll0outclk_out[0]                                                                      |             0.2 |
+| qpll0outrefclk_out[0]                                                                                                                                                                                                                                                                    | xcvr_hdmi/inst/gen_gtwizard_gthe4_top.xcv_hdmi_gtwizard_gthe4_inst/gen_gtwizard_gthe4.gen_common.gen_common_container[0].gen_enabled_common.gthe4_common_wrapper_inst/common_inst/qpll0outrefclk_out[0]                                                                   |             6.7 |
+| xcvr_hdmi/inst/gen_gtwizard_gthe4_top.xcv_hdmi_gtwizard_gthe4_inst/gen_gtwizard_gthe4.gen_cpll_cal_gthe4.gen_cpll_cal_inst[0].gen_inst_cpll_cal.gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal_inst/gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal_rx_i/gen_cal_rx_en.bufg_gt_rxoutclkmon_inst/O | xcvr_hdmi/inst/gen_gtwizard_gthe4_top.xcv_hdmi_gtwizard_gthe4_inst/gen_gtwizard_gthe4.gen_cpll_cal_gthe4.gen_cpll_cal_inst[0].gen_inst_cpll_cal.gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal_inst/gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal_rx_i/gen_cal_rx_en.rxoutclkmon |             6.7 |
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------+
+
+
+3. Detailed Reports
+-------------------
+
+3.1 By Hierarchy
+----------------
+
++-----------------------------------------------------------+-----------+
+| Name                                                      | Power (W) |
++-----------------------------------------------------------+-----------+
+| fpga_top                                                  |     0.855 |
+|   clk_125m_pll                                            |     0.097 |
+|     inst                                                  |     0.097 |
+|   dbg_hub                                                 |     0.003 |
+|     inst                                                  |     0.003 |
+|       BSCANID.u_xsdbm_id                                  |     0.003 |
+|   hpio_refclk_inst                                        |     0.002 |
+|   kvm_vid_top_rgb                                         |     0.004 |
+|     hdmi_tx_1080p                                         |     0.003 |
+|       enc_b                                               |     0.002 |
+|     video_timing_gen                                      |     0.001 |
+|   video_uut                                               |     0.011 |
+|   vio_0                                                   |     0.004 |
+|     inst                                                  |     0.004 |
+|       PROBE_IN_INST                                       |     0.002 |
+|       U_XSDB_SLAVE                                        |     0.001 |
+|   xcvr_hdmi                                               |     0.722 |
+|     inst                                                  |     0.722 |
+|       gen_gtwizard_gthe4_top.xcv_hdmi_gtwizard_gthe4_inst |     0.722 |
++-----------------------------------------------------------+-----------+
+
+

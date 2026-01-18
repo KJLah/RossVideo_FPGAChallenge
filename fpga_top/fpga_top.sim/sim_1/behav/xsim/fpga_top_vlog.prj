@@ -1,0 +1,26 @@
+# compile verilog/system verilog design source files
+verilog xil_defaultlib  --include "../../../../../../../../../AMDDesignTools/2025.2/Vivado/data/rsb/busdef" \
+"../../../../fpga_top.gen/sources_1/ip/vio_0/vio_0_sim_netlist.v" \
+"../../../../fpga_top.gen/sources_1/ip/xcv_hdmi/xcv_hdmi_sim_netlist.v" \
+"../../../../fpga_top.gen/sources_1/ip/clk_125m_pll/clk_125m_pll_sim_netlist.v" \
+
+sv xil_defaultlib  --include "../../../../../../../../../AMDDesignTools/2025.2/Vivado/data/rsb/busdef" \
+"../../../../../rtl_ross/cdc_sync_enc.sv" \
+"../../../../../rtl_ross/clock_mon_enc.sv" \
+"../../../../../rtl_ross/edge_detect_enc.sv" \
+"../../../../../rtl_ross/global_reset_gen_enc.sv" \
+"../../../../../rtl_ross/hdmi_pkg_enc.sv" \
+"../../../../../rtl_ross/hdmi_tx_1080p_enc.sv" \
+"../../../../../rtl_ross/kvm_vid_top_rgb_enc.sv" \
+"../../../../../rtl_ross/pipe_delay_enc.sv" \
+"../../../../../rtl_ross/tmds_encoder_enc.sv" \
+"../../../../../rtl_ross/tpg_bars_rgb_enc.sv" \
+"../../../../../rtl_ross/video_timing_gen_enc.sv" \
+"../../../../../rtl/video_uut.sv" \
+"../../../../../rtl/fpga_top.sv" \
+
+# compile glbl module
+verilog xil_defaultlib "glbl.v"
+
+# Do not sort compile order
+nosort

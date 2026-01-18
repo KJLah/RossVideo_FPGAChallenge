@@ -1,0 +1,440 @@
+#-----------------------------------------------------------
+# Vivado v2025.2 (64-bit)
+# SW Build 6299465 on Fri Nov 14 19:35:11 GMT 2025
+# IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
+# SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
+# Start of session at: Sat Jan 17 19:23:39 2026
+# Process ID         : 8468
+# Current directory  : C:/Users/ahmed/Downloads/uOttaHack_FPGA/fpga_top/fpga_top.runs/synth_1
+# Command line       : vivado.exe -log fpga_top.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source fpga_top.tcl
+# Log file           : C:/Users/ahmed/Downloads/uOttaHack_FPGA/fpga_top/fpga_top.runs/synth_1/fpga_top.vds
+# Journal file       : C:/Users/ahmed/Downloads/uOttaHack_FPGA/fpga_top/fpga_top.runs/synth_1\vivado.jou
+# Running On         : Ahmed_Laptop
+# Platform           : Windows Server 2016 or Windows 10
+# Operating System   : 26100
+# Processor Detail   : 11th Gen Intel(R) Core(TM) i7-1195G7 @ 2.90GHz
+# CPU Frequency      : 2918 MHz
+# CPU Physical cores : 4
+# CPU Logical cores  : 8
+# Host memory        : 8215 MB
+# Swap memory        : 10330 MB
+# Total Virtual      : 18545 MB
+# Available Virtual  : 2808 MB
+#-----------------------------------------------------------
+source fpga_top.tcl -notrace
+create_project: Time (s): cpu = 00:00:11 ; elapsed = 00:00:08 . Memory (MB): peak = 544.266 ; gain = 221.098
+Command: read_checkpoint -auto_incremental -incremental C:/Users/ahmed/Downloads/uOttaHack_FPGA/fpga_top/fpga_top.srcs/utils_1/imports/synth_1/fpga_top.dcp
+INFO: [Vivado 12-5825] Read reference checkpoint from C:/Users/ahmed/Downloads/uOttaHack_FPGA/fpga_top/fpga_top.srcs/utils_1/imports/synth_1/fpga_top.dcp for incremental synthesis
+INFO: [Vivado 12-7989] Please ensure there are no constraint changes
+Command: synth_design -top fpga_top -part xczu5ev-fbvb900-2-e
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xczu5ev'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xczu5ev'
+INFO: [Device 21-403] Loading part xczu5ev-fbvb900-2-e
+INFO: [Designutils 20-5440] No compile time benefit to using incremental synthesis; A full resynthesis will be run
+INFO: [Designutils 20-4379] Flow is switching to default flow due to incremental criteria not met. If you would like to alter this behaviour and have the flow terminate instead, please set the following parameter config_implementation {autoIncr.Synth.RejectBehavior Terminate}
+INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 2 processes.
+INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
+INFO: [Synth 8-7075] Helper process launched with PID 21324
+---------------------------------------------------------------------------------
+Starting RTL Elaboration : Time (s): cpu = 00:00:08 ; elapsed = 00:00:09 . Memory (MB): peak = 1862.238 ; gain = 211.449
+---------------------------------------------------------------------------------
+INFO: [Synth 8-6157] synthesizing module 'fpga_top' [C:/Users/ahmed/Downloads/uOttaHack_FPGA/rtl/fpga_top.sv:16]
+INFO: [Synth 8-6157] synthesizing module 'IBUFDS' [C:/AMDDesignTools/2025.2/Vivado/scripts/rt/data/unisim_comp.v:82819]
+INFO: [Synth 8-6155] done synthesizing module 'IBUFDS' (0#1) [C:/AMDDesignTools/2025.2/Vivado/scripts/rt/data/unisim_comp.v:82819]
+INFO: [Synth 8-6157] synthesizing module 'BUFG' [C:/AMDDesignTools/2025.2/Vivado/scripts/rt/data/unisim_comp.v:2678]
+INFO: [Synth 8-6155] done synthesizing module 'BUFG' (0#1) [C:/AMDDesignTools/2025.2/Vivado/scripts/rt/data/unisim_comp.v:2678]
+INFO: [Synth 8-6157] synthesizing module 'clk_125m_pll' [C:/Users/ahmed/Downloads/uOttaHack_FPGA/fpga_top/fpga_top.runs/synth_1/.Xil/Vivado-8468-Ahmed_Laptop/realtime/clk_125m_pll_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'clk_125m_pll' (0#1) [C:/Users/ahmed/Downloads/uOttaHack_FPGA/fpga_top/fpga_top.runs/synth_1/.Xil/Vivado-8468-Ahmed_Laptop/realtime/clk_125m_pll_stub.v:6]
+INFO: [Synth 8-6157] synthesizing module 'video_uut' [C:/Users/ahmed/Downloads/uOttaHack_FPGA/rtl/video_uut.sv:24]
+INFO: [Synth 8-6155] done synthesizing module 'video_uut' (0#1) [C:/Users/ahmed/Downloads/uOttaHack_FPGA/rtl/video_uut.sv:24]
+INFO: [Synth 8-6157] synthesizing module 'xcv_hdmi_reset_synchronizer' [C:/Users/ahmed/Downloads/uOttaHack_FPGA/rtl/fpga_top.sv:305]
+INFO: [Synth 8-6155] done synthesizing module 'xcv_hdmi_reset_synchronizer' (0#1) [C:/Users/ahmed/Downloads/uOttaHack_FPGA/rtl/fpga_top.sv:305]
+INFO: [Synth 8-6157] synthesizing module 'IBUFDS_GTE4' [C:/AMDDesignTools/2025.2/Vivado/scripts/rt/data/unisim_comp.v:83082]
+INFO: [Synth 8-6155] done synthesizing module 'IBUFDS_GTE4' (0#1) [C:/AMDDesignTools/2025.2/Vivado/scripts/rt/data/unisim_comp.v:83082]
+INFO: [Synth 8-6157] synthesizing module 'BUFG_GT' [C:/AMDDesignTools/2025.2/Vivado/scripts/rt/data/unisim_comp.v:2855]
+INFO: [Synth 8-6155] done synthesizing module 'BUFG_GT' (0#1) [C:/AMDDesignTools/2025.2/Vivado/scripts/rt/data/unisim_comp.v:2855]
+INFO: [Synth 8-6157] synthesizing module 'xcv_hdmi' [C:/Users/ahmed/Downloads/uOttaHack_FPGA/fpga_top/fpga_top.runs/synth_1/.Xil/Vivado-8468-Ahmed_Laptop/realtime/xcv_hdmi_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'xcv_hdmi' (0#1) [C:/Users/ahmed/Downloads/uOttaHack_FPGA/fpga_top/fpga_top.runs/synth_1/.Xil/Vivado-8468-Ahmed_Laptop/realtime/xcv_hdmi_stub.v:6]
+WARNING: [Synth 8-689] width (1) of port connection 'drpclk_in' does not match port width (4) of module 'xcv_hdmi' [C:/Users/ahmed/Downloads/uOttaHack_FPGA/rtl/fpga_top.sv:224]
+WARNING: [Synth 8-689] width (3) of port connection 'gthrxn_in' does not match port width (4) of module 'xcv_hdmi' [C:/Users/ahmed/Downloads/uOttaHack_FPGA/rtl/fpga_top.sv:225]
+WARNING: [Synth 8-689] width (3) of port connection 'gthrxp_in' does not match port width (4) of module 'xcv_hdmi' [C:/Users/ahmed/Downloads/uOttaHack_FPGA/rtl/fpga_top.sv:226]
+INFO: [Synth 8-6157] synthesizing module 'vio_0' [C:/Users/ahmed/Downloads/uOttaHack_FPGA/fpga_top/fpga_top.runs/synth_1/.Xil/Vivado-8468-Ahmed_Laptop/realtime/vio_0_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'vio_0' (0#1) [C:/Users/ahmed/Downloads/uOttaHack_FPGA/fpga_top/fpga_top.runs/synth_1/.Xil/Vivado-8468-Ahmed_Laptop/realtime/vio_0_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'fpga_top' (0#1) [C:/Users/ahmed/Downloads/uOttaHack_FPGA/rtl/fpga_top.sv:16]
+WARNING: [Synth 8-6014] Unused sequential element frame_counter_reg was removed.  [C:/Users/ahmed/Downloads/uOttaHack_FPGA/rtl/video_uut.sv:144]
+WARNING: [Synth 8-6014] Unused sequential element snowflake_rot_reg[0] was removed.  [C:/Users/ahmed/Downloads/uOttaHack_FPGA/rtl/video_uut.sv:133]
+WARNING: [Synth 8-6014] Unused sequential element snowflake_rot_reg[1] was removed.  [C:/Users/ahmed/Downloads/uOttaHack_FPGA/rtl/video_uut.sv:133]
+WARNING: [Synth 8-6014] Unused sequential element snowflake_rot_reg[2] was removed.  [C:/Users/ahmed/Downloads/uOttaHack_FPGA/rtl/video_uut.sv:133]
+WARNING: [Synth 8-6014] Unused sequential element snowflake_rot_reg[3] was removed.  [C:/Users/ahmed/Downloads/uOttaHack_FPGA/rtl/video_uut.sv:133]
+WARNING: [Synth 8-6014] Unused sequential element snowflake_rot_reg[4] was removed.  [C:/Users/ahmed/Downloads/uOttaHack_FPGA/rtl/video_uut.sv:133]
+WARNING: [Synth 8-6014] Unused sequential element snowflake_rot_reg[5] was removed.  [C:/Users/ahmed/Downloads/uOttaHack_FPGA/rtl/video_uut.sv:133]
+WARNING: [Synth 8-6014] Unused sequential element snowflake_rot_reg[6] was removed.  [C:/Users/ahmed/Downloads/uOttaHack_FPGA/rtl/video_uut.sv:133]
+WARNING: [Synth 8-6014] Unused sequential element snowflake_rot_reg[7] was removed.  [C:/Users/ahmed/Downloads/uOttaHack_FPGA/rtl/video_uut.sv:133]
+WARNING: [Synth 8-6014] Unused sequential element snowflake_rot_reg[8] was removed.  [C:/Users/ahmed/Downloads/uOttaHack_FPGA/rtl/video_uut.sv:133]
+WARNING: [Synth 8-6014] Unused sequential element snowflake_rot_reg[9] was removed.  [C:/Users/ahmed/Downloads/uOttaHack_FPGA/rtl/video_uut.sv:133]
+WARNING: [Synth 8-6014] Unused sequential element snowflake_rot_reg[10] was removed.  [C:/Users/ahmed/Downloads/uOttaHack_FPGA/rtl/video_uut.sv:133]
+WARNING: [Synth 8-6014] Unused sequential element snowflake_rot_reg[11] was removed.  [C:/Users/ahmed/Downloads/uOttaHack_FPGA/rtl/video_uut.sv:133]
+INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'vio_0'. This will prevent further optimization [C:/Users/ahmed/Downloads/uOttaHack_FPGA/rtl/fpga_top.sv:265]
+WARNING: [Synth 8-3917] design fpga_top has port pin_hdmi_tx_pixclk_sel_n_o driven by constant 0
+WARNING: [Synth 8-3917] design fpga_top has port pin_hdmi_rx_oe_o driven by constant 0
+WARNING: [Synth 8-3917] design fpga_top has port pin_hdmi_tx_cec_o driven by constant 1
+WARNING: [Synth 8-7129] Port pcen_i in module hdmi_tx_1080p is either unconnected or has no load
+WARNING: [Synth 8-7129] Port vid_sel_i in module video_uut is either unconnected or has no load
+WARNING: [Synth 8-7129] Port vid_rgb_i[23] in module video_uut is either unconnected or has no load
+WARNING: [Synth 8-7129] Port vid_rgb_i[22] in module video_uut is either unconnected or has no load
+WARNING: [Synth 8-7129] Port vid_rgb_i[21] in module video_uut is either unconnected or has no load
+WARNING: [Synth 8-7129] Port vid_rgb_i[20] in module video_uut is either unconnected or has no load
+WARNING: [Synth 8-7129] Port vid_rgb_i[19] in module video_uut is either unconnected or has no load
+WARNING: [Synth 8-7129] Port vid_rgb_i[18] in module video_uut is either unconnected or has no load
+WARNING: [Synth 8-7129] Port vid_rgb_i[17] in module video_uut is either unconnected or has no load
+WARNING: [Synth 8-7129] Port vid_rgb_i[16] in module video_uut is either unconnected or has no load
+WARNING: [Synth 8-7129] Port vid_rgb_i[15] in module video_uut is either unconnected or has no load
+WARNING: [Synth 8-7129] Port vid_rgb_i[14] in module video_uut is either unconnected or has no load
+WARNING: [Synth 8-7129] Port vid_rgb_i[13] in module video_uut is either unconnected or has no load
+WARNING: [Synth 8-7129] Port vid_rgb_i[12] in module video_uut is either unconnected or has no load
+WARNING: [Synth 8-7129] Port vid_rgb_i[11] in module video_uut is either unconnected or has no load
+WARNING: [Synth 8-7129] Port vid_rgb_i[10] in module video_uut is either unconnected or has no load
+WARNING: [Synth 8-7129] Port vid_rgb_i[9] in module video_uut is either unconnected or has no load
+WARNING: [Synth 8-7129] Port vid_rgb_i[8] in module video_uut is either unconnected or has no load
+WARNING: [Synth 8-7129] Port vid_rgb_i[7] in module video_uut is either unconnected or has no load
+WARNING: [Synth 8-7129] Port vid_rgb_i[6] in module video_uut is either unconnected or has no load
+WARNING: [Synth 8-7129] Port vid_rgb_i[5] in module video_uut is either unconnected or has no load
+WARNING: [Synth 8-7129] Port vid_rgb_i[4] in module video_uut is either unconnected or has no load
+WARNING: [Synth 8-7129] Port vid_rgb_i[3] in module video_uut is either unconnected or has no load
+WARNING: [Synth 8-7129] Port vid_rgb_i[2] in module video_uut is either unconnected or has no load
+WARNING: [Synth 8-7129] Port vid_rgb_i[1] in module video_uut is either unconnected or has no load
+WARNING: [Synth 8-7129] Port vid_rgb_i[0] in module video_uut is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pin_hdmi_rx_clk_i_n in module fpga_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pin_hdmi_rx_clk_i_p in module fpga_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pin_hdmi_tx_fault_n_i in module fpga_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pin_hdmi_tx_hpd_i in module fpga_top is either unconnected or has no load
+---------------------------------------------------------------------------------
+Finished RTL Elaboration : Time (s): cpu = 00:00:11 ; elapsed = 00:00:11 . Memory (MB): peak = 1997.781 ; gain = 346.992
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:11 ; elapsed = 00:00:12 . Memory (MB): peak = 1997.781 ; gain = 346.992
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:11 ; elapsed = 00:00:12 . Memory (MB): peak = 1997.781 ; gain = 346.992
+---------------------------------------------------------------------------------
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.044 . Memory (MB): peak = 1997.781 ; gain = 0.000
+INFO: [Netlist 29-17] Analyzing 2 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-570] Preparing netlist for logic optimization
+
+Processing XDC Constraints
+Initializing timing engine
+Parsing XDC File [c:/Users/ahmed/Downloads/uOttaHack_FPGA/fpga_top/fpga_top.gen/sources_1/ip/vio_0/vio_0/vio_0_in_context.xdc] for cell 'vio_0'
+Finished Parsing XDC File [c:/Users/ahmed/Downloads/uOttaHack_FPGA/fpga_top/fpga_top.gen/sources_1/ip/vio_0/vio_0/vio_0_in_context.xdc] for cell 'vio_0'
+Parsing XDC File [c:/Users/ahmed/Downloads/uOttaHack_FPGA/fpga_top/fpga_top.gen/sources_1/ip/xcv_hdmi/xcv_hdmi/xcv_hdmi_in_context.xdc] for cell 'xcvr_hdmi'
+create_clock: Time (s): cpu = 00:00:05 ; elapsed = 00:00:06 . Memory (MB): peak = 2087.930 ; gain = 23.793
+Finished Parsing XDC File [c:/Users/ahmed/Downloads/uOttaHack_FPGA/fpga_top/fpga_top.gen/sources_1/ip/xcv_hdmi/xcv_hdmi/xcv_hdmi_in_context.xdc] for cell 'xcvr_hdmi'
+Parsing XDC File [c:/Users/ahmed/Downloads/uOttaHack_FPGA/fpga_top/fpga_top.gen/sources_1/ip/clk_125m_pll/clk_125m_pll/clk_125m_pll_in_context.xdc] for cell 'clk_125m_pll'
+Finished Parsing XDC File [c:/Users/ahmed/Downloads/uOttaHack_FPGA/fpga_top/fpga_top.gen/sources_1/ip/clk_125m_pll/clk_125m_pll/clk_125m_pll_in_context.xdc] for cell 'clk_125m_pll'
+Parsing XDC File [C:/Users/ahmed/Downloads/uOttaHack_FPGA/rtl/fpga_top.xdc]
+WARNING: [Vivado 12-508] No pins matched 'clk_125m_pll/inst/mmcme4_adv_inst/CLKOUT0'. [C:/Users/ahmed/Downloads/uOttaHack_FPGA/rtl/fpga_top.xdc:18]
+Finished Parsing XDC File [C:/Users/ahmed/Downloads/uOttaHack_FPGA/rtl/fpga_top.xdc]
+WARNING: [Project 1-498] One or more constraints failed evaluation while reading constraint file [C:/Users/ahmed/Downloads/uOttaHack_FPGA/rtl/fpga_top.xdc] and the design contains unresolved black boxes. These constraints will be read post-synthesis (as long as their source constraint file is marked as used_in_implementation) and should be applied correctly then. You should review the constraints listed in the file [.Xil/fpga_top_propImpl.xdc] and check the run log file to verify that these constraints were correctly applied.
+INFO: [Project 1-236] Implementation specific constraints were found while reading constraint file [C:/Users/ahmed/Downloads/uOttaHack_FPGA/rtl/fpga_top.xdc]. These constraints will be ignored for synthesis but will be used in implementation. Impacted constraints are listed in the file [.Xil/fpga_top_propImpl.xdc].
+Resolution: To avoid this warning, move constraints listed in [.Xil/fpga_top_propImpl.xdc] to another XDC file and exclude this new file from synthesis with the used_in_synthesis property (File Properties dialog in GUI) and re-run elaboration/synthesis.
+Completed Processing XDC Constraints
+
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.002 . Memory (MB): peak = 2087.930 ; gain = 0.000
+INFO: [Project 1-111] Unisim Transformation Summary:
+  A total of 2 instances were transformed.
+  BUFG => BUFGCE: 1 instance 
+  IBUFDS => IBUFDS (DIFFINBUF, IBUFCTRL): 1 instance 
+
+Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.038 . Memory (MB): peak = 2087.930 ; gain = 0.000
+WARNING: [Timing 38-316] Clock period '10.000' specified during out-of-context synthesis of instance 'vio_0' at clock pin 'clk' is different from the actual clock period '8.000', this can lead to different synthesis results.
+INFO: [Designutils 20-5440] No compile time benefit to using incremental synthesis; A full resynthesis will be run
+INFO: [Designutils 20-4379] Flow is switching to default flow due to incremental criteria not met. If you would like to alter this behaviour and have the flow terminate instead, please set the following parameter config_implementation {autoIncr.Synth.RejectBehavior Terminate}
+---------------------------------------------------------------------------------
+Finished Constraint Validation : Time (s): cpu = 00:00:25 ; elapsed = 00:00:27 . Memory (MB): peak = 2088.008 ; gain = 437.219
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Loading Part and Timing Information
+---------------------------------------------------------------------------------
+Loading part: xczu5ev-fbvb900-2-e
+INFO: [Synth 8-6742] Reading net delay rules and data
+---------------------------------------------------------------------------------
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:25 ; elapsed = 00:00:27 . Memory (MB): peak = 2088.008 ; gain = 437.219
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying 'set_property' XDC Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:25 ; elapsed = 00:00:27 . Memory (MB): peak = 2088.008 ; gain = 437.219
+---------------------------------------------------------------------------------
+INFO: [Synth 8-802] inferred FSM for state register 'state_reg' in module 'tmds_encoder'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+           STATE_CONTROL |                               00 |                               00
+          STATE_PREAMBLE |                               01 |                               10
+         STATE_GUARDBAND |                               10 |                               01
+             STATE_VIDEO |                               11 |                               11
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'state_reg' using encoding 'sequential' in module 'tmds_encoder'
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:26 ; elapsed = 00:00:28 . Memory (MB): peak = 2088.008 ; gain = 437.219
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start RTL Component Statistics 
+---------------------------------------------------------------------------------
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input   32 Bit       Adders := 5     
+	   2 Input   12 Bit       Adders := 38    
+	   2 Input   11 Bit       Adders := 15    
+	   3 Input   11 Bit       Adders := 24    
+	   2 Input   10 Bit       Adders := 1     
+	   2 Input    9 Bit       Adders := 1     
+	   5 Input    8 Bit       Adders := 6     
+	   4 Input    8 Bit       Adders := 3     
+	   2 Input    6 Bit       Adders := 1     
+	   2 Input    5 Bit       Adders := 2     
+	   2 Input    4 Bit       Adders := 3     
+	   8 Input    4 Bit       Adders := 6     
++---XORs : 
+	   2 Input      1 Bit         XORs := 40    
++---Registers : 
+	               32 Bit    Registers := 2     
+	               26 Bit    Registers := 2     
+	               24 Bit    Registers := 3     
+	               12 Bit    Registers := 1     
+	               11 Bit    Registers := 25    
+	               10 Bit    Registers := 3     
+	                9 Bit    Registers := 31    
+	                8 Bit    Registers := 4     
+	                6 Bit    Registers := 1     
+	                5 Bit    Registers := 3     
+	                4 Bit    Registers := 11    
+	                3 Bit    Registers := 1     
+	                2 Bit    Registers := 3     
+	                1 Bit    Registers := 28    
++---Muxes : 
+	   5 Input   24 Bit        Muxes := 12    
+	   9 Input   24 Bit        Muxes := 1     
+	   5 Input   11 Bit        Muxes := 11    
+	   2 Input   11 Bit        Muxes := 48    
+	   4 Input   10 Bit        Muxes := 15    
+	   2 Input   10 Bit        Muxes := 12    
+	   4 Input    9 Bit        Muxes := 3     
+	   2 Input    9 Bit        Muxes := 3     
+	   4 Input    8 Bit        Muxes := 4     
+	   2 Input    8 Bit        Muxes := 15    
+	   4 Input    7 Bit        Muxes := 1     
+	   4 Input    4 Bit        Muxes := 3     
+	   2 Input    3 Bit        Muxes := 3     
+	   4 Input    2 Bit        Muxes := 3     
+	   2 Input    2 Bit        Muxes := 3     
+	   2 Input    1 Bit        Muxes := 34    
+	   4 Input    1 Bit        Muxes := 9     
+---------------------------------------------------------------------------------
+Finished RTL Component Statistics 
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Part Resource Summary
+---------------------------------------------------------------------------------
+Part Resources:
+DSPs: 1248 (col length:96)
+BRAMs: 288 (col length: RAMB18 96 RAMB36 48)
+---------------------------------------------------------------------------------
+Finished Part Resource Summary
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Cross Boundary and Area Optimization
+---------------------------------------------------------------------------------
+WARNING: [Synth 8-3917] design fpga_top has port pin_hdmi_tx_pixclk_sel_n_o driven by constant 0
+WARNING: [Synth 8-3917] design fpga_top has port pin_hdmi_rx_oe_o driven by constant 0
+WARNING: [Synth 8-3917] design fpga_top has port pin_hdmi_tx_cec_o driven by constant 1
+WARNING: [Synth 8-7129] Port pcen_i in module hdmi_tx_1080p is either unconnected or has no load
+WARNING: [Synth 8-7129] Port vid_sel_i in module video_uut is either unconnected or has no load
+WARNING: [Synth 8-7129] Port vid_rgb_i[23] in module video_uut is either unconnected or has no load
+WARNING: [Synth 8-7129] Port vid_rgb_i[22] in module video_uut is either unconnected or has no load
+WARNING: [Synth 8-7129] Port vid_rgb_i[21] in module video_uut is either unconnected or has no load
+WARNING: [Synth 8-7129] Port vid_rgb_i[20] in module video_uut is either unconnected or has no load
+WARNING: [Synth 8-7129] Port vid_rgb_i[19] in module video_uut is either unconnected or has no load
+WARNING: [Synth 8-7129] Port vid_rgb_i[18] in module video_uut is either unconnected or has no load
+WARNING: [Synth 8-7129] Port vid_rgb_i[17] in module video_uut is either unconnected or has no load
+WARNING: [Synth 8-7129] Port vid_rgb_i[16] in module video_uut is either unconnected or has no load
+WARNING: [Synth 8-7129] Port vid_rgb_i[15] in module video_uut is either unconnected or has no load
+WARNING: [Synth 8-7129] Port vid_rgb_i[14] in module video_uut is either unconnected or has no load
+WARNING: [Synth 8-7129] Port vid_rgb_i[13] in module video_uut is either unconnected or has no load
+WARNING: [Synth 8-7129] Port vid_rgb_i[12] in module video_uut is either unconnected or has no load
+WARNING: [Synth 8-7129] Port vid_rgb_i[11] in module video_uut is either unconnected or has no load
+WARNING: [Synth 8-7129] Port vid_rgb_i[10] in module video_uut is either unconnected or has no load
+WARNING: [Synth 8-7129] Port vid_rgb_i[9] in module video_uut is either unconnected or has no load
+WARNING: [Synth 8-7129] Port vid_rgb_i[8] in module video_uut is either unconnected or has no load
+WARNING: [Synth 8-7129] Port vid_rgb_i[7] in module video_uut is either unconnected or has no load
+WARNING: [Synth 8-7129] Port vid_rgb_i[6] in module video_uut is either unconnected or has no load
+WARNING: [Synth 8-7129] Port vid_rgb_i[5] in module video_uut is either unconnected or has no load
+WARNING: [Synth 8-7129] Port vid_rgb_i[4] in module video_uut is either unconnected or has no load
+WARNING: [Synth 8-7129] Port vid_rgb_i[3] in module video_uut is either unconnected or has no load
+WARNING: [Synth 8-7129] Port vid_rgb_i[2] in module video_uut is either unconnected or has no load
+WARNING: [Synth 8-7129] Port vid_rgb_i[1] in module video_uut is either unconnected or has no load
+WARNING: [Synth 8-7129] Port vid_rgb_i[0] in module video_uut is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pin_hdmi_rx_clk_i_n in module fpga_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pin_hdmi_rx_clk_i_p in module fpga_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pin_hdmi_tx_fault_n_i in module fpga_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pin_hdmi_tx_hpd_i in module fpga_top is either unconnected or has no load
+---------------------------------------------------------------------------------
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:42 ; elapsed = 00:00:45 . Memory (MB): peak = 2100.156 ; gain = 449.367
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying XDC Timing Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:55 ; elapsed = 00:00:59 . Memory (MB): peak = 2735.188 ; gain = 1084.398
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Timing Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Timing Optimization : Time (s): cpu = 00:00:56 ; elapsed = 00:00:59 . Memory (MB): peak = 2758.504 ; gain = 1107.715
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Technology Mapping
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Technology Mapping : Time (s): cpu = 00:00:57 ; elapsed = 00:01:00 . Memory (MB): peak = 2760.965 ; gain = 1110.176
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished IO Insertion : Time (s): cpu = 00:01:01 ; elapsed = 00:01:05 . Memory (MB): peak = 2997.422 ; gain = 1346.633
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Instances
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Instances : Time (s): cpu = 00:01:01 ; elapsed = 00:01:05 . Memory (MB): peak = 2997.422 ; gain = 1346.633
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Rebuilding User Hierarchy
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:01:01 ; elapsed = 00:01:05 . Memory (MB): peak = 2997.422 ; gain = 1346.633
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Ports
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Ports : Time (s): cpu = 00:01:01 ; elapsed = 00:01:05 . Memory (MB): peak = 2997.422 ; gain = 1346.633
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:01:01 ; elapsed = 00:01:05 . Memory (MB): peak = 2997.422 ; gain = 1346.633
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Nets
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Nets : Time (s): cpu = 00:01:01 ; elapsed = 00:01:05 . Memory (MB): peak = 2997.422 ; gain = 1346.633
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+
+Static Shift Register Report:
++----------------+--------------------------------------------------------+--------+-------+--------------+--------------------+-------------------+--------+---------+
+|Module Name     | RTL Name                                               | Length | Width | Reset Signal | Pull out first Reg | Pull out last Reg | SRL16E | SRLC32E | 
++----------------+--------------------------------------------------------+--------+-------+--------------+--------------------+-------------------+--------+---------+
+|kvm_vid_top_rgb | tpg_bars_rgb/tx_vh_d3_reg[1]                           | 3      | 2     | NO           | NO                 | YES               | 2      | 0       | 
+|kvm_vid_top_rgb | hdmi_tx_1080p/enc_b/pipe_delay/DELAY_NE0.sr_reg[10][6] | 10     | 7     | NO           | NO                 | YES               | 7      | 0       | 
+|kvm_vid_top_rgb | hdmi_tx_1080p/enc_r/pipe_delay/DELAY_NE0.sr_reg[10][8] | 10     | 2     | NO           | NO                 | YES               | 2      | 0       | 
+|kvm_vid_top_rgb | hsync_d_reg[2]                                         | 3      | 1     | NO           | NO                 | YES               | 1      | 0       | 
+|kvm_vid_top_rgb | vsync_d_reg[2]                                         | 3      | 1     | NO           | NO                 | YES               | 1      | 0       | 
+|kvm_vid_top_rgb | de_d_reg[2]                                            | 3      | 1     | NO           | NO                 | YES               | 1      | 0       | 
++----------------+--------------------------------------------------------+--------+-------+--------------+--------------------+-------------------+--------+---------+
+
+---------------------------------------------------------------------------------
+Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Writing Synthesis Report
+---------------------------------------------------------------------------------
+
+Report BlackBoxes: 
++------+--------------+----------+
+|      |BlackBox name |Instances |
++------+--------------+----------+
+|1     |clk_125m_pll  |         1|
+|2     |xcv_hdmi      |         1|
+|3     |vio_0         |         1|
++------+--------------+----------+
+
+Report Cell Usage: 
++------+-------------+------+
+|      |Cell         |Count |
++------+-------------+------+
+|1     |clk_125m_pll |     1|
+|2     |vio          |     1|
+|3     |xcv_hdmi     |     1|
+|4     |BUFG         |     1|
+|5     |BUFG_GT      |     1|
+|6     |CARRY8       |   184|
+|7     |IBUFDS_GTE4  |     1|
+|8     |LUT1         |    50|
+|9     |LUT2         |   798|
+|10    |LUT3         |   164|
+|11    |LUT4         |   408|
+|12    |LUT5         |   168|
+|13    |LUT6         |   364|
+|14    |SRL16E       |    14|
+|15    |FDPE         |     5|
+|16    |FDRE         |   638|
+|17    |FDSE         |    87|
+|18    |IBUF         |     4|
+|19    |IBUFDS       |     1|
+|20    |OBUF         |     8|
++------+-------------+------+
+---------------------------------------------------------------------------------
+Finished Writing Synthesis Report : Time (s): cpu = 00:01:01 ; elapsed = 00:01:05 . Memory (MB): peak = 2997.422 ; gain = 1346.633
+---------------------------------------------------------------------------------
+Synthesis finished with 0 errors, 0 critical warnings and 33 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:43 ; elapsed = 00:00:58 . Memory (MB): peak = 2997.422 ; gain = 1256.406
+Synthesis Optimization Complete : Time (s): cpu = 00:01:02 ; elapsed = 00:01:06 . Memory (MB): peak = 2997.422 ; gain = 1346.633
+INFO: [Project 1-571] Translating synthesized netlist
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.121 . Memory (MB): peak = 2997.422 ; gain = 0.000
+INFO: [Netlist 29-17] Analyzing 190 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+INFO: [Opt 31-441] Inserted BUFG_GT_SYNC BUFG_GT_SYNC for BUFG_GT bufg_gt_inst
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.003 . Memory (MB): peak = 2997.422 ; gain = 0.000
+INFO: [Project 1-111] Unisim Transformation Summary:
+  A total of 6 instances were transformed.
+  BUFG => BUFGCE: 1 instance 
+  IBUF => IBUF (IBUFCTRL, INBUF): 4 instances
+  IBUFDS => IBUFDS (DIFFINBUF, IBUFCTRL): 1 instance 
+
+Synth Design complete | Checksum: 3211aa13
+INFO: [Common 17-83] Releasing license: Synthesis
+48 Infos, 85 Warnings, 0 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:01:16 ; elapsed = 00:01:26 . Memory (MB): peak = 2997.422 ; gain = 2394.199
+Write ShapeDB Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.019 . Memory (MB): peak = 2997.422 ; gain = 0.000
+INFO: [Common 17-1381] The checkpoint 'C:/Users/ahmed/Downloads/uOttaHack_FPGA/fpga_top/fpga_top.runs/synth_1/fpga_top.dcp' has been generated.
+INFO: [Vivado 12-24828] Executing command : report_utilization -file fpga_top_utilization_synth.rpt -pb fpga_top_utilization_synth.pb
+INFO: [Common 17-206] Exiting Vivado at Sat Jan 17 19:25:21 2026...
