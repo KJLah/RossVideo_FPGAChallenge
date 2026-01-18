@@ -152,7 +152,7 @@ function [23:0] draw_maze;
     reg [10:0] center_x, center_y;
     reg [10:0] letter_start_x;
     reg [10:0] letter_width, letter_height;
-    reg [10:0] thickness_outer, thickness_inner;
+    reg [10:0] thickness_outer, thickness_inner, thickness_gap;
     reg [10:0] border_thickness;
     reg [10:0] corner_size;
     begin
@@ -234,60 +234,168 @@ function [23:0] draw_maze;
             draw_maze = COLOR_MAZE;
         end
         
-        // HUGE ROSS letters - simple block style hollow letters spanning most of screen
+        // HUGE ROSS letters - Pac-Man style double-lined maze paths with hollow space
         letter_start_x = 200;  // Start from left side
         letter_width = 350;  // Much wider letters
         letter_height = 450;  // Much taller letters
-        thickness_outer = 20;  // Thick single outline
-        thickness_inner = 0;   // No double-line effect for simplicity
+        thickness_outer = 16;  // Outer wall thickness
+        thickness_inner = 16;   // Inner wall thickness
+        thickness_gap = 20;     // Gap between outer and inner walls (hollow space)
         
-        // Draw "ROSS" letters as simple hollow block letters
-        // R - First letter (RED) - Simple block R with ALIGNED diagonal leg
+        // R - First letter (BLUE) - Double-lined Pac-Man style R
         if (px >= letter_start_x && px < letter_start_x + letter_width && py >= center_y - letter_height/2 && py < center_y + letter_height/2) begin
-            // R outline: left vertical, top horizontal, top-right vertical, middle horizontal, diagonal leg (ALIGNED)
-            if ((px >= letter_start_x && px < letter_start_x + thickness_outer && py >= center_y - letter_height/2 && py < center_y + letter_height/2) ||  // Left vertical (full height)
-                (px >= letter_start_x + thickness_outer && px < letter_start_x + letter_width && py >= center_y - letter_height/2 && py < center_y - letter_height/2 + thickness_outer) ||  // Top horizontal
-                (px >= letter_start_x + letter_width - thickness_outer && px < letter_start_x + letter_width && py >= center_y - letter_height/2 + thickness_outer && py < center_y) ||  // Top right vertical (to middle)
-                (px >= letter_start_x + thickness_outer && px < letter_start_x + letter_width && py >= center_y && py < center_y + thickness_outer) ||  // Middle horizontal
-                (px >= letter_start_x + letter_width - thickness_outer && px < letter_start_x + letter_width && py >= center_y + thickness_outer && py < center_y + letter_height/2)) begin  // Bottom right diagonal leg (ALIGNED to right edge)
-                draw_maze = COLOR_LETTER_R;  // RED
+            // Left vertical wall (full height) - double-lined path
+            if ((px >= letter_start_x && px < letter_start_x + thickness_outer) ||  // Outer wall (left edge)
+                (px >= letter_start_x + thickness_outer + thickness_gap && px < letter_start_x + thickness_outer + thickness_gap + thickness_inner)) begin  // Inner wall (right edge of path)
+                draw_maze = COLOR_LETTER_R;
+            end
+            // Top horizontal wall - double-lined path
+            if ((py >= center_y - letter_height/2 && py < center_y - letter_height/2 + thickness_outer) ||  // Outer wall (top edge)
+                (py >= center_y - letter_height/2 + thickness_outer + thickness_gap && py < center_y - letter_height/2 + thickness_outer + thickness_gap + thickness_inner)) begin  // Inner wall (bottom edge of path)
+                if (px >= letter_start_x && px < letter_start_x + letter_width) begin
+                    draw_maze = COLOR_LETTER_R;
+                end
+            end
+            // Top-right vertical (to middle) - double-lined path
+            if ((px >= letter_start_x + letter_width - thickness_outer && px < letter_start_x + letter_width) ||  // Outer wall (right edge)
+                (px >= letter_start_x + letter_width - thickness_outer - thickness_gap - thickness_inner && px < letter_start_x + letter_width - thickness_outer - thickness_gap)) begin  // Inner wall (left edge of path)
+                if (py >= center_y - letter_height/2 + thickness_outer && py < center_y) begin
+                    draw_maze = COLOR_LETTER_R;
+                end
+            end
+            // Middle horizontal wall - double-lined path
+            if ((py >= center_y && py < center_y + thickness_outer) ||  // Outer wall (top edge)
+                (py >= center_y + thickness_outer + thickness_gap && py < center_y + thickness_outer + thickness_gap + thickness_inner)) begin  // Inner wall (bottom edge of path)
+                if (px >= letter_start_x && px < letter_start_x + letter_width) begin
+                    draw_maze = COLOR_LETTER_R;
+                end
+            end
+            // Bottom-right diagonal leg - double-lined path (simplified as vertical)
+            if ((px >= letter_start_x + letter_width - thickness_outer && px < letter_start_x + letter_width) ||  // Outer wall (right edge)
+                (px >= letter_start_x + letter_width - thickness_outer - thickness_gap - thickness_inner && px < letter_start_x + letter_width - thickness_outer - thickness_gap)) begin  // Inner wall (left edge of path)
+                if (py >= center_y + thickness_outer && py < center_y + letter_height/2) begin
+                    draw_maze = COLOR_LETTER_R;
+                end
             end
         end
         
-        // O - Second letter (ORANGE) - Simple block O rectangle
+        // O - Second letter (ORANGE) - Double-lined Pac-Man style O (rectangular loop)
         if (px >= letter_start_x + 430 && px < letter_start_x + 430 + letter_width && py >= center_y - letter_height/2 && py < center_y + letter_height/2) begin
-            // O outline: simple rectangle
-            if ((px >= letter_start_x + 430 && px < letter_start_x + 430 + thickness_outer && py >= center_y - letter_height/2 && py < center_y + letter_height/2) ||  // Left vertical
-                (px >= letter_start_x + 430 + letter_width - thickness_outer && px < letter_start_x + 430 + letter_width && py >= center_y - letter_height/2 && py < center_y + letter_height/2) ||  // Right vertical
-                (px >= letter_start_x + 430 + thickness_outer && px < letter_start_x + 430 + letter_width - thickness_outer && py >= center_y - letter_height/2 && py < center_y - letter_height/2 + thickness_outer) ||  // Top horizontal
-                (px >= letter_start_x + 430 + thickness_outer && px < letter_start_x + 430 + letter_width - thickness_outer && py >= center_y + letter_height/2 - thickness_outer && py < center_y + letter_height/2)) begin  // Bottom horizontal
-                draw_maze = COLOR_LETTER_O;  // ORANGE
+            // Left vertical wall - double-lined path
+            if ((px >= letter_start_x + 430 && px < letter_start_x + 430 + thickness_outer) ||  // Outer wall (left edge)
+                (px >= letter_start_x + 430 + thickness_outer + thickness_gap && px < letter_start_x + 430 + thickness_outer + thickness_gap + thickness_inner)) begin  // Inner wall (right edge of path)
+                draw_maze = COLOR_LETTER_O;
+            end
+            // Right vertical wall - double-lined path
+            if ((px >= letter_start_x + 430 + letter_width - thickness_outer && px < letter_start_x + 430 + letter_width) ||  // Outer wall (right edge)
+                (px >= letter_start_x + 430 + letter_width - thickness_outer - thickness_gap - thickness_inner && px < letter_start_x + 430 + letter_width - thickness_outer - thickness_gap)) begin  // Inner wall (left edge of path)
+                draw_maze = COLOR_LETTER_O;
+            end
+            // Top horizontal wall - double-lined path
+            if ((py >= center_y - letter_height/2 && py < center_y - letter_height/2 + thickness_outer) ||  // Outer wall (top edge)
+                (py >= center_y - letter_height/2 + thickness_outer + thickness_gap && py < center_y - letter_height/2 + thickness_outer + thickness_gap + thickness_inner)) begin  // Inner wall (bottom edge of path)
+                if (px >= letter_start_x + 430 + thickness_outer && px < letter_start_x + 430 + letter_width - thickness_outer) begin
+                    draw_maze = COLOR_LETTER_O;
+                end
+            end
+            // Bottom horizontal wall - double-lined path
+            if ((py >= center_y + letter_height/2 - thickness_outer && py < center_y + letter_height/2) ||  // Outer wall (bottom edge)
+                (py >= center_y + letter_height/2 - thickness_outer - thickness_gap - thickness_inner && py < center_y + letter_height/2 - thickness_outer - thickness_gap)) begin  // Inner wall (top edge of path)
+                if (px >= letter_start_x + 430 + thickness_outer && px < letter_start_x + 430 + letter_width - thickness_outer) begin
+                    draw_maze = COLOR_LETTER_O;
+                end
             end
         end
         
-        // S - Third letter (RED) - Proper 7-segment display S shape
+        // S - Third letter (RED) - Double-lined Pac-Man style S
         if (px >= letter_start_x + 860 && px < letter_start_x + 860 + letter_width && py >= center_y - letter_height/2 && py < center_y + letter_height/2) begin
-            // S outline: Top section has LEFT vertical, bottom section has RIGHT vertical (like 7-segment)
-            if ((px >= letter_start_x + 860 && px < letter_start_x + 860 + thickness_outer && py >= center_y - letter_height/2 && py < center_y) ||  // Top LEFT vertical (only top half)
-                (px >= letter_start_x + 860 + thickness_outer && px < letter_start_x + 860 + letter_width && py >= center_y - letter_height/2 && py < center_y - letter_height/2 + thickness_outer) ||  // Top horizontal
-                (px >= letter_start_x + 860 + letter_width - thickness_outer && px < letter_start_x + 860 + letter_width && py >= center_y - letter_height/2 + thickness_outer && py < center_y - letter_height/2 + 40) ||  // Top right vertical stub (very short)
-                (px >= letter_start_x + 860 && px < letter_start_x + 860 + letter_width && py >= center_y && py < center_y + thickness_outer) ||  // Middle horizontal
-                (px >= letter_start_x + 860 + letter_width - thickness_outer && px < letter_start_x + 860 + letter_width && py >= center_y + thickness_outer && py < center_y + letter_height/2) ||  // Bottom RIGHT vertical (full bottom half)
-                (px >= letter_start_x + 860 && px < letter_start_x + 860 + letter_width - thickness_outer && py >= center_y + letter_height/2 - thickness_outer && py < center_y + letter_height/2)) begin  // Bottom horizontal
-                draw_maze = COLOR_LETTER_S1;  // RED
+            // Top LEFT vertical (top half only) - double-lined path
+            if ((px >= letter_start_x + 860 && px < letter_start_x + 860 + thickness_outer) ||  // Outer wall (left edge)
+                (px >= letter_start_x + 860 + thickness_outer + thickness_gap && px < letter_start_x + 860 + thickness_outer + thickness_gap + thickness_inner)) begin  // Inner wall (right edge of path)
+                if (py >= center_y - letter_height/2 + thickness_outer && py < center_y) begin
+                    draw_maze = COLOR_LETTER_S1;
+                end
+            end
+            // Top horizontal wall - double-lined path
+            if ((py >= center_y - letter_height/2 && py < center_y - letter_height/2 + thickness_outer) ||  // Outer wall (top edge)
+                (py >= center_y - letter_height/2 + thickness_outer + thickness_gap && py < center_y - letter_height/2 + thickness_outer + thickness_gap + thickness_inner)) begin  // Inner wall (bottom edge of path)
+                if (px >= letter_start_x + 860 + thickness_outer && px < letter_start_x + 860 + letter_width - thickness_outer) begin
+                    draw_maze = COLOR_LETTER_S1;
+                end
+            end
+            // Top right vertical stub - double-lined path
+            if ((px >= letter_start_x + 860 + letter_width - thickness_outer && px < letter_start_x + 860 + letter_width) ||  // Outer wall (right edge)
+                (px >= letter_start_x + 860 + letter_width - thickness_outer - thickness_gap - thickness_inner && px < letter_start_x + 860 + letter_width - thickness_outer - thickness_gap)) begin  // Inner wall (left edge of path)
+                if (py >= center_y - letter_height/2 + thickness_outer && py < center_y - letter_height/2 + 60) begin
+                    draw_maze = COLOR_LETTER_S1;
+                end
+            end
+            // Middle horizontal wall - double-lined path
+            if ((py >= center_y && py < center_y + thickness_outer) ||  // Outer wall (top edge)
+                (py >= center_y + thickness_outer + thickness_gap && py < center_y + thickness_outer + thickness_gap + thickness_inner)) begin  // Inner wall (bottom edge of path)
+                if (px >= letter_start_x + 860 && px < letter_start_x + 860 + letter_width) begin
+                    draw_maze = COLOR_LETTER_S1;
+                end
+            end
+            // Bottom RIGHT vertical (bottom half) - double-lined path
+            if ((px >= letter_start_x + 860 + letter_width - thickness_outer && px < letter_start_x + 860 + letter_width) ||  // Outer wall (right edge)
+                (px >= letter_start_x + 860 + letter_width - thickness_outer - thickness_gap - thickness_inner && px < letter_start_x + 860 + letter_width - thickness_outer - thickness_gap)) begin  // Inner wall (left edge of path)
+                if (py >= center_y + thickness_outer && py < center_y + letter_height/2) begin
+                    draw_maze = COLOR_LETTER_S1;
+                end
+            end
+            // Bottom horizontal wall - double-lined path
+            if ((py >= center_y + letter_height/2 - thickness_outer && py < center_y + letter_height/2) ||  // Outer wall (bottom edge)
+                (py >= center_y + letter_height/2 - thickness_outer - thickness_gap - thickness_inner && py < center_y + letter_height/2 - thickness_outer - thickness_gap)) begin  // Inner wall (top edge of path)
+                if (px >= letter_start_x + 860 && px < letter_start_x + 860 + letter_width - thickness_outer) begin
+                    draw_maze = COLOR_LETTER_S1;
+                end
             end
         end
         
-        // S - Fourth letter (GREEN) - Proper 7-segment display S shape (same as third)
+        // S - Fourth letter (GREEN) - Double-lined Pac-Man style S (same as third)
         if (px >= letter_start_x + 1290 && px < letter_start_x + 1290 + letter_width && py >= center_y - letter_height/2 && py < center_y + letter_height/2) begin
-            // S outline: Top section has LEFT vertical, bottom section has RIGHT vertical (like 7-segment)
-            if ((px >= letter_start_x + 1290 && px < letter_start_x + 1290 + thickness_outer && py >= center_y - letter_height/2 && py < center_y) ||  // Top LEFT vertical (only top half)
-                (px >= letter_start_x + 1290 + thickness_outer && px < letter_start_x + 1290 + letter_width && py >= center_y - letter_height/2 && py < center_y - letter_height/2 + thickness_outer) ||  // Top horizontal
-                (px >= letter_start_x + 1290 + letter_width - thickness_outer && px < letter_start_x + 1290 + letter_width && py >= center_y - letter_height/2 + thickness_outer && py < center_y - letter_height/2 + 40) ||  // Top right vertical stub (very short)
-                (px >= letter_start_x + 1290 && px < letter_start_x + 1290 + letter_width && py >= center_y && py < center_y + thickness_outer) ||  // Middle horizontal
-                (px >= letter_start_x + 1290 + letter_width - thickness_outer && px < letter_start_x + 1290 + letter_width && py >= center_y + thickness_outer && py < center_y + letter_height/2) ||  // Bottom RIGHT vertical (full bottom half)
-                (px >= letter_start_x + 1290 && px < letter_start_x + 1290 + letter_width - thickness_outer && py >= center_y + letter_height/2 - thickness_outer && py < center_y + letter_height/2)) begin  // Bottom horizontal
-                draw_maze = COLOR_LETTER_S2;  // GREEN
+            // Top LEFT vertical (top half only) - double-lined path
+            if ((px >= letter_start_x + 1290 && px < letter_start_x + 1290 + thickness_outer) ||  // Outer wall (left edge)
+                (px >= letter_start_x + 1290 + thickness_outer + thickness_gap && px < letter_start_x + 1290 + thickness_outer + thickness_gap + thickness_inner)) begin  // Inner wall (right edge of path)
+                if (py >= center_y - letter_height/2 + thickness_outer && py < center_y) begin
+                    draw_maze = COLOR_LETTER_S2;
+                end
+            end
+            // Top horizontal wall - double-lined path
+            if ((py >= center_y - letter_height/2 && py < center_y - letter_height/2 + thickness_outer) ||  // Outer wall (top edge)
+                (py >= center_y - letter_height/2 + thickness_outer + thickness_gap && py < center_y - letter_height/2 + thickness_outer + thickness_gap + thickness_inner)) begin  // Inner wall (bottom edge of path)
+                if (px >= letter_start_x + 1290 + thickness_outer && px < letter_start_x + 1290 + letter_width - thickness_outer) begin
+                    draw_maze = COLOR_LETTER_S2;
+                end
+            end
+            // Top right vertical stub - double-lined path
+            if ((px >= letter_start_x + 1290 + letter_width - thickness_outer && px < letter_start_x + 1290 + letter_width) ||  // Outer wall (right edge)
+                (px >= letter_start_x + 1290 + letter_width - thickness_outer - thickness_gap - thickness_inner && px < letter_start_x + 1290 + letter_width - thickness_outer - thickness_gap)) begin  // Inner wall (left edge of path)
+                if (py >= center_y - letter_height/2 + thickness_outer && py < center_y - letter_height/2 + 60) begin
+                    draw_maze = COLOR_LETTER_S2;
+                end
+            end
+            // Middle horizontal wall - double-lined path
+            if ((py >= center_y && py < center_y + thickness_outer) ||  // Outer wall (top edge)
+                (py >= center_y + thickness_outer + thickness_gap && py < center_y + thickness_outer + thickness_gap + thickness_inner)) begin  // Inner wall (bottom edge of path)
+                if (px >= letter_start_x + 1290 && px < letter_start_x + 1290 + letter_width) begin
+                    draw_maze = COLOR_LETTER_S2;
+                end
+            end
+            // Bottom RIGHT vertical (bottom half) - double-lined path
+            if ((px >= letter_start_x + 1290 + letter_width - thickness_outer && px < letter_start_x + 1290 + letter_width) ||  // Outer wall (right edge)
+                (px >= letter_start_x + 1290 + letter_width - thickness_outer - thickness_gap - thickness_inner && px < letter_start_x + 1290 + letter_width - thickness_outer - thickness_gap)) begin  // Inner wall (left edge of path)
+                if (py >= center_y + thickness_outer && py < center_y + letter_height/2) begin
+                    draw_maze = COLOR_LETTER_S2;
+                end
+            end
+            // Bottom horizontal wall - double-lined path
+            if ((py >= center_y + letter_height/2 - thickness_outer && py < center_y + letter_height/2) ||  // Outer wall (bottom edge)
+                (py >= center_y + letter_height/2 - thickness_outer - thickness_gap - thickness_inner && py < center_y + letter_height/2 - thickness_outer - thickness_gap)) begin  // Inner wall (top edge of path)
+                if (px >= letter_start_x + 1290 && px < letter_start_x + 1290 + letter_width - thickness_outer) begin
+                    draw_maze = COLOR_LETTER_S2;
+                end
             end
         end
     end
@@ -438,6 +546,17 @@ assign ghost_color[2] = draw_ghost(HCNT, VCNT, ghost_x[2], ghost_y_static, COLOR
 assign ghost_color[3] = draw_ghost(HCNT, VCNT, ghost_x[3], ghost_y_static, COLOR_GHOST_GREEN);  // Cyan (but using green)
 assign ghost_color[4] = draw_ghost(HCNT, VCNT, ghost_x[4], ghost_y_static, COLOR_GHOST_PURPLE); // Blue (but using purple)
 
+// Static Pac-Man positioned right underneath the line of ghosts
+wire [10:0] pacman_x_static;
+wire [10:0] pacman_y_static;
+wire [7:0]  pacman_mouth_static;
+wire [23:0] pacman_color_static;
+
+assign pacman_x_static = 960;        // Center horizontally
+assign pacman_y_static = 250;        // Below ghosts (ghosts at 150, ghosts ~50 tall, gap ~50)
+assign pacman_mouth_static = 8'd45;  // Static mouth angle (moderately open)
+assign pacman_color_static = draw_pacman(HCNT, VCNT, pacman_x_static, pacman_y_static, pacman_mouth_static);
+
 // Function to draw dots/pellets (white dots in empty spaces)
 function [23:0] draw_dots;
     input [10:0] px, py;  // Pixel coordinates
@@ -533,6 +652,11 @@ always @(posedge clk_i) begin
             if (ghost_color[j] != 24'h0) begin
                 vid_rgb_d1 <= ghost_color[j];
             end
+        end
+        
+        // Draw static Pac-Man (below ghosts, on top of maze)
+        if (pacman_color_static != 24'h0) begin
+            vid_rgb_d1 <= pacman_color_static;
         end
         
         // Draw snowflakes on top (check each snowflake, later ones draw on top)
