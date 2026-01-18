@@ -8,12 +8,12 @@
   **** SW Build 6299465 on Fri Nov 14 19:35:11 GMT 2025
   **** IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
   **** SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
-  **** Start of session at: Sat Jan 17 23:05:10 2026
+  **** Start of session at: Sun Jan 18 01:16:06 2026
     ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
     ** Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 
 source fpga_top.tcl -notrace
-create_project: Time (s): cpu = 00:00:12 ; elapsed = 00:00:08 . Memory (MB): peak = 545.789 ; gain = 220.250
+create_project: Time (s): cpu = 00:00:13 ; elapsed = 00:00:09 . Memory (MB): peak = 546.352 ; gain = 222.285
 Command: read_checkpoint -auto_incremental -incremental C:/Users/ahmed/Downloads/uOttaHack_FPGA/fpga_top/fpga_top.srcs/utils_1/imports/synth_1/fpga_top.dcp
 INFO: [Vivado 12-5825] Read reference checkpoint from C:/Users/ahmed/Downloads/uOttaHack_FPGA/fpga_top/fpga_top.srcs/utils_1/imports/synth_1/fpga_top.dcp for incremental synthesis
 INFO: [Vivado 12-7989] Please ensure there are no constraint changes
@@ -26,20 +26,17 @@ INFO: [Designutils 20-5440] No compile time benefit to using incremental synthes
 INFO: [Designutils 20-4379] Flow is switching to default flow due to incremental criteria not met. If you would like to alter this behaviour and have the flow terminate instead, please set the following parameter config_implementation {autoIncr.Synth.RejectBehavior Terminate}
 INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 2 processes.
 INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
-INFO: [Synth 8-7075] Helper process launched with PID 18636
+INFO: [Synth 8-7075] Helper process launched with PID 18140
 ---------------------------------------------------------------------------------
-Starting RTL Elaboration : Time (s): cpu = 00:00:09 ; elapsed = 00:00:09 . Memory (MB): peak = 1859.969 ; gain = 210.547
+Starting RTL Elaboration : Time (s): cpu = 00:00:11 ; elapsed = 00:00:12 . Memory (MB): peak = 1862.926 ; gain = 211.875
 ---------------------------------------------------------------------------------
-CRITICAL WARNING: [Synth 8-9339] data object 'dot_color' is already declared [C:/Users/ahmed/Downloads/uOttaHack_FPGA/rtl/video_uut.sv:533]
-INFO: [Synth 8-6826] previous declaration of 'dot_color' is from here [C:/Users/ahmed/Downloads/uOttaHack_FPGA/rtl/video_uut.sv:470]
-CRITICAL WARNING: [Synth 8-11152] second declaration of 'dot_color' is ignored [C:/Users/ahmed/Downloads/uOttaHack_FPGA/rtl/video_uut.sv:533]
 INFO: [Synth 8-6157] synthesizing module 'fpga_top' [C:/Users/ahmed/Downloads/uOttaHack_FPGA/rtl/fpga_top.sv:16]
 INFO: [Synth 8-6157] synthesizing module 'IBUFDS' [C:/AMDDesignTools/2025.2/Vivado/scripts/rt/data/unisim_comp.v:82819]
 INFO: [Synth 8-6155] done synthesizing module 'IBUFDS' (0#1) [C:/AMDDesignTools/2025.2/Vivado/scripts/rt/data/unisim_comp.v:82819]
 INFO: [Synth 8-6157] synthesizing module 'BUFG' [C:/AMDDesignTools/2025.2/Vivado/scripts/rt/data/unisim_comp.v:2678]
 INFO: [Synth 8-6155] done synthesizing module 'BUFG' (0#1) [C:/AMDDesignTools/2025.2/Vivado/scripts/rt/data/unisim_comp.v:2678]
-INFO: [Synth 8-6157] synthesizing module 'clk_125m_pll' [C:/Users/ahmed/Downloads/uOttaHack_FPGA/fpga_top/fpga_top.runs/synth_1/.Xil/Vivado-3536-Ahmed_Laptop/realtime/clk_125m_pll_stub.v:6]
-INFO: [Synth 8-6155] done synthesizing module 'clk_125m_pll' (0#1) [C:/Users/ahmed/Downloads/uOttaHack_FPGA/fpga_top/fpga_top.runs/synth_1/.Xil/Vivado-3536-Ahmed_Laptop/realtime/clk_125m_pll_stub.v:6]
+INFO: [Synth 8-6157] synthesizing module 'clk_125m_pll' [C:/Users/ahmed/Downloads/uOttaHack_FPGA/fpga_top/fpga_top.runs/synth_1/.Xil/Vivado-22824-Ahmed_Laptop/realtime/clk_125m_pll_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'clk_125m_pll' (0#1) [C:/Users/ahmed/Downloads/uOttaHack_FPGA/fpga_top/fpga_top.runs/synth_1/.Xil/Vivado-22824-Ahmed_Laptop/realtime/clk_125m_pll_stub.v:6]
 INFO: [Synth 8-6157] synthesizing module 'video_uut' [C:/Users/ahmed/Downloads/uOttaHack_FPGA/rtl/video_uut.sv:24]
 INFO: [Synth 8-6155] done synthesizing module 'video_uut' (0#1) [C:/Users/ahmed/Downloads/uOttaHack_FPGA/rtl/video_uut.sv:24]
 INFO: [Synth 8-6157] synthesizing module 'xcv_hdmi_reset_synchronizer' [C:/Users/ahmed/Downloads/uOttaHack_FPGA/rtl/fpga_top.sv:305]
@@ -48,29 +45,27 @@ INFO: [Synth 8-6157] synthesizing module 'IBUFDS_GTE4' [C:/AMDDesignTools/2025.2
 INFO: [Synth 8-6155] done synthesizing module 'IBUFDS_GTE4' (0#1) [C:/AMDDesignTools/2025.2/Vivado/scripts/rt/data/unisim_comp.v:83082]
 INFO: [Synth 8-6157] synthesizing module 'BUFG_GT' [C:/AMDDesignTools/2025.2/Vivado/scripts/rt/data/unisim_comp.v:2855]
 INFO: [Synth 8-6155] done synthesizing module 'BUFG_GT' (0#1) [C:/AMDDesignTools/2025.2/Vivado/scripts/rt/data/unisim_comp.v:2855]
-INFO: [Synth 8-6157] synthesizing module 'xcv_hdmi' [C:/Users/ahmed/Downloads/uOttaHack_FPGA/fpga_top/fpga_top.runs/synth_1/.Xil/Vivado-3536-Ahmed_Laptop/realtime/xcv_hdmi_stub.v:6]
-INFO: [Synth 8-6155] done synthesizing module 'xcv_hdmi' (0#1) [C:/Users/ahmed/Downloads/uOttaHack_FPGA/fpga_top/fpga_top.runs/synth_1/.Xil/Vivado-3536-Ahmed_Laptop/realtime/xcv_hdmi_stub.v:6]
+INFO: [Synth 8-6157] synthesizing module 'xcv_hdmi' [C:/Users/ahmed/Downloads/uOttaHack_FPGA/fpga_top/fpga_top.runs/synth_1/.Xil/Vivado-22824-Ahmed_Laptop/realtime/xcv_hdmi_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'xcv_hdmi' (0#1) [C:/Users/ahmed/Downloads/uOttaHack_FPGA/fpga_top/fpga_top.runs/synth_1/.Xil/Vivado-22824-Ahmed_Laptop/realtime/xcv_hdmi_stub.v:6]
 WARNING: [Synth 8-689] width (1) of port connection 'drpclk_in' does not match port width (4) of module 'xcv_hdmi' [C:/Users/ahmed/Downloads/uOttaHack_FPGA/rtl/fpga_top.sv:224]
 WARNING: [Synth 8-689] width (3) of port connection 'gthrxn_in' does not match port width (4) of module 'xcv_hdmi' [C:/Users/ahmed/Downloads/uOttaHack_FPGA/rtl/fpga_top.sv:225]
 WARNING: [Synth 8-689] width (3) of port connection 'gthrxp_in' does not match port width (4) of module 'xcv_hdmi' [C:/Users/ahmed/Downloads/uOttaHack_FPGA/rtl/fpga_top.sv:226]
-INFO: [Synth 8-6157] synthesizing module 'vio_0' [C:/Users/ahmed/Downloads/uOttaHack_FPGA/fpga_top/fpga_top.runs/synth_1/.Xil/Vivado-3536-Ahmed_Laptop/realtime/vio_0_stub.v:6]
-INFO: [Synth 8-6155] done synthesizing module 'vio_0' (0#1) [C:/Users/ahmed/Downloads/uOttaHack_FPGA/fpga_top/fpga_top.runs/synth_1/.Xil/Vivado-3536-Ahmed_Laptop/realtime/vio_0_stub.v:6]
+INFO: [Synth 8-6157] synthesizing module 'vio_0' [C:/Users/ahmed/Downloads/uOttaHack_FPGA/fpga_top/fpga_top.runs/synth_1/.Xil/Vivado-22824-Ahmed_Laptop/realtime/vio_0_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'vio_0' (0#1) [C:/Users/ahmed/Downloads/uOttaHack_FPGA/fpga_top/fpga_top.runs/synth_1/.Xil/Vivado-22824-Ahmed_Laptop/realtime/vio_0_stub.v:6]
 INFO: [Synth 8-6155] done synthesizing module 'fpga_top' (0#1) [C:/Users/ahmed/Downloads/uOttaHack_FPGA/rtl/fpga_top.sv:16]
-WARNING: [Synth 8-6014] Unused sequential element frame_counter_reg was removed.  [C:/Users/ahmed/Downloads/uOttaHack_FPGA/rtl/video_uut.sv:543]
-WARNING: [Synth 8-6014] Unused sequential element maze_offset_y_reg was removed.  [C:/Users/ahmed/Downloads/uOttaHack_FPGA/rtl/video_uut.sv:544]
-WARNING: [Synth 8-6014] Unused sequential element pacman_mouth_angle_reg was removed.  [C:/Users/ahmed/Downloads/uOttaHack_FPGA/rtl/video_uut.sv:545]
-WARNING: [Synth 8-6014] Unused sequential element snowflake_rot_reg[0] was removed.  [C:/Users/ahmed/Downloads/uOttaHack_FPGA/rtl/video_uut.sv:148]
-WARNING: [Synth 8-6014] Unused sequential element snowflake_rot_reg[1] was removed.  [C:/Users/ahmed/Downloads/uOttaHack_FPGA/rtl/video_uut.sv:148]
-WARNING: [Synth 8-6014] Unused sequential element snowflake_rot_reg[2] was removed.  [C:/Users/ahmed/Downloads/uOttaHack_FPGA/rtl/video_uut.sv:148]
-WARNING: [Synth 8-6014] Unused sequential element snowflake_rot_reg[3] was removed.  [C:/Users/ahmed/Downloads/uOttaHack_FPGA/rtl/video_uut.sv:148]
-WARNING: [Synth 8-6014] Unused sequential element snowflake_rot_reg[4] was removed.  [C:/Users/ahmed/Downloads/uOttaHack_FPGA/rtl/video_uut.sv:148]
-WARNING: [Synth 8-6014] Unused sequential element snowflake_rot_reg[5] was removed.  [C:/Users/ahmed/Downloads/uOttaHack_FPGA/rtl/video_uut.sv:148]
-WARNING: [Synth 8-6014] Unused sequential element snowflake_rot_reg[6] was removed.  [C:/Users/ahmed/Downloads/uOttaHack_FPGA/rtl/video_uut.sv:148]
-WARNING: [Synth 8-6014] Unused sequential element snowflake_rot_reg[7] was removed.  [C:/Users/ahmed/Downloads/uOttaHack_FPGA/rtl/video_uut.sv:148]
-WARNING: [Synth 8-6014] Unused sequential element snowflake_rot_reg[8] was removed.  [C:/Users/ahmed/Downloads/uOttaHack_FPGA/rtl/video_uut.sv:148]
-WARNING: [Synth 8-6014] Unused sequential element snowflake_rot_reg[9] was removed.  [C:/Users/ahmed/Downloads/uOttaHack_FPGA/rtl/video_uut.sv:148]
-WARNING: [Synth 8-6014] Unused sequential element snowflake_rot_reg[10] was removed.  [C:/Users/ahmed/Downloads/uOttaHack_FPGA/rtl/video_uut.sv:148]
-WARNING: [Synth 8-6014] Unused sequential element snowflake_rot_reg[11] was removed.  [C:/Users/ahmed/Downloads/uOttaHack_FPGA/rtl/video_uut.sv:148]
+WARNING: [Synth 8-6014] Unused sequential element frame_counter_reg was removed.  [C:/Users/ahmed/Downloads/uOttaHack_FPGA/rtl/video_uut.sv:471]
+WARNING: [Synth 8-6014] Unused sequential element snowflake_rot_reg[0] was removed.  [C:/Users/ahmed/Downloads/uOttaHack_FPGA/rtl/video_uut.sv:144]
+WARNING: [Synth 8-6014] Unused sequential element snowflake_rot_reg[1] was removed.  [C:/Users/ahmed/Downloads/uOttaHack_FPGA/rtl/video_uut.sv:144]
+WARNING: [Synth 8-6014] Unused sequential element snowflake_rot_reg[2] was removed.  [C:/Users/ahmed/Downloads/uOttaHack_FPGA/rtl/video_uut.sv:144]
+WARNING: [Synth 8-6014] Unused sequential element snowflake_rot_reg[3] was removed.  [C:/Users/ahmed/Downloads/uOttaHack_FPGA/rtl/video_uut.sv:144]
+WARNING: [Synth 8-6014] Unused sequential element snowflake_rot_reg[4] was removed.  [C:/Users/ahmed/Downloads/uOttaHack_FPGA/rtl/video_uut.sv:144]
+WARNING: [Synth 8-6014] Unused sequential element snowflake_rot_reg[5] was removed.  [C:/Users/ahmed/Downloads/uOttaHack_FPGA/rtl/video_uut.sv:144]
+WARNING: [Synth 8-6014] Unused sequential element snowflake_rot_reg[6] was removed.  [C:/Users/ahmed/Downloads/uOttaHack_FPGA/rtl/video_uut.sv:144]
+WARNING: [Synth 8-6014] Unused sequential element snowflake_rot_reg[7] was removed.  [C:/Users/ahmed/Downloads/uOttaHack_FPGA/rtl/video_uut.sv:144]
+WARNING: [Synth 8-6014] Unused sequential element snowflake_rot_reg[8] was removed.  [C:/Users/ahmed/Downloads/uOttaHack_FPGA/rtl/video_uut.sv:144]
+WARNING: [Synth 8-6014] Unused sequential element snowflake_rot_reg[9] was removed.  [C:/Users/ahmed/Downloads/uOttaHack_FPGA/rtl/video_uut.sv:144]
+WARNING: [Synth 8-6014] Unused sequential element snowflake_rot_reg[10] was removed.  [C:/Users/ahmed/Downloads/uOttaHack_FPGA/rtl/video_uut.sv:144]
+WARNING: [Synth 8-6014] Unused sequential element snowflake_rot_reg[11] was removed.  [C:/Users/ahmed/Downloads/uOttaHack_FPGA/rtl/video_uut.sv:144]
 INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'vio_0'. This will prevent further optimization [C:/Users/ahmed/Downloads/uOttaHack_FPGA/rtl/fpga_top.sv:265]
 WARNING: [Synth 8-3917] design fpga_top has port pin_hdmi_tx_pixclk_sel_n_o driven by constant 0
 WARNING: [Synth 8-3917] design fpga_top has port pin_hdmi_rx_oe_o driven by constant 0
@@ -106,18 +101,18 @@ WARNING: [Synth 8-7129] Port pin_hdmi_rx_clk_i_p in module fpga_top is either un
 WARNING: [Synth 8-7129] Port pin_hdmi_tx_fault_n_i in module fpga_top is either unconnected or has no load
 WARNING: [Synth 8-7129] Port pin_hdmi_tx_hpd_i in module fpga_top is either unconnected or has no load
 ---------------------------------------------------------------------------------
-Finished RTL Elaboration : Time (s): cpu = 00:00:11 ; elapsed = 00:00:12 . Memory (MB): peak = 2007.449 ; gain = 358.027
+Finished RTL Elaboration : Time (s): cpu = 00:00:14 ; elapsed = 00:00:16 . Memory (MB): peak = 2008.086 ; gain = 357.035
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:11 ; elapsed = 00:00:12 . Memory (MB): peak = 2007.449 ; gain = 358.027
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:14 ; elapsed = 00:00:16 . Memory (MB): peak = 2008.086 ; gain = 357.035
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:11 ; elapsed = 00:00:12 . Memory (MB): peak = 2007.449 ; gain = 358.027
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:14 ; elapsed = 00:00:16 . Memory (MB): peak = 2008.086 ; gain = 357.035
 ---------------------------------------------------------------------------------
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.054 . Memory (MB): peak = 2007.449 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.063 . Memory (MB): peak = 2008.086 ; gain = 0.000
 INFO: [Netlist 29-17] Analyzing 2 Unisim elements for replacement
 INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
 INFO: [Project 1-570] Preparing netlist for logic optimization
@@ -127,7 +122,7 @@ Initializing timing engine
 Parsing XDC File [c:/Users/ahmed/Downloads/uOttaHack_FPGA/fpga_top/fpga_top.gen/sources_1/ip/vio_0/vio_0/vio_0_in_context.xdc] for cell 'vio_0'
 Finished Parsing XDC File [c:/Users/ahmed/Downloads/uOttaHack_FPGA/fpga_top/fpga_top.gen/sources_1/ip/vio_0/vio_0/vio_0_in_context.xdc] for cell 'vio_0'
 Parsing XDC File [c:/Users/ahmed/Downloads/uOttaHack_FPGA/fpga_top/fpga_top.gen/sources_1/ip/xcv_hdmi/xcv_hdmi/xcv_hdmi_in_context.xdc] for cell 'xcvr_hdmi'
-create_clock: Time (s): cpu = 00:00:05 ; elapsed = 00:00:06 . Memory (MB): peak = 2104.004 ; gain = 20.004
+create_clock: Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 2103.484 ; gain = 20.254
 Finished Parsing XDC File [c:/Users/ahmed/Downloads/uOttaHack_FPGA/fpga_top/fpga_top.gen/sources_1/ip/xcv_hdmi/xcv_hdmi/xcv_hdmi_in_context.xdc] for cell 'xcvr_hdmi'
 Parsing XDC File [c:/Users/ahmed/Downloads/uOttaHack_FPGA/fpga_top/fpga_top.gen/sources_1/ip/clk_125m_pll/clk_125m_pll/clk_125m_pll_in_context.xdc] for cell 'clk_125m_pll'
 Finished Parsing XDC File [c:/Users/ahmed/Downloads/uOttaHack_FPGA/fpga_top/fpga_top.gen/sources_1/ip/clk_125m_pll/clk_125m_pll/clk_125m_pll_in_context.xdc] for cell 'clk_125m_pll'
@@ -139,18 +134,18 @@ INFO: [Project 1-236] Implementation specific constraints were found while readi
 Resolution: To avoid this warning, move constraints listed in [.Xil/fpga_top_propImpl.xdc] to another XDC file and exclude this new file from synthesis with the used_in_synthesis property (File Properties dialog in GUI) and re-run elaboration/synthesis.
 Completed Processing XDC Constraints
 
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.001 . Memory (MB): peak = 2104.004 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.002 . Memory (MB): peak = 2103.484 ; gain = 0.000
 INFO: [Project 1-111] Unisim Transformation Summary:
   A total of 2 instances were transformed.
   BUFG => BUFGCE: 1 instance 
   IBUFDS => IBUFDS (DIFFINBUF, IBUFCTRL): 1 instance 
 
-Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.044 . Memory (MB): peak = 2104.004 ; gain = 0.000
+Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.044 . Memory (MB): peak = 2103.484 ; gain = 0.000
 WARNING: [Timing 38-316] Clock period '10.000' specified during out-of-context synthesis of instance 'vio_0' at clock pin 'clk' is different from the actual clock period '8.000', this can lead to different synthesis results.
 INFO: [Designutils 20-5440] No compile time benefit to using incremental synthesis; A full resynthesis will be run
 INFO: [Designutils 20-4379] Flow is switching to default flow due to incremental criteria not met. If you would like to alter this behaviour and have the flow terminate instead, please set the following parameter config_implementation {autoIncr.Synth.RejectBehavior Terminate}
 ---------------------------------------------------------------------------------
-Finished Constraint Validation : Time (s): cpu = 00:00:26 ; elapsed = 00:00:27 . Memory (MB): peak = 2104.176 ; gain = 454.754
+Finished Constraint Validation : Time (s): cpu = 00:00:30 ; elapsed = 00:00:33 . Memory (MB): peak = 2103.594 ; gain = 452.543
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Loading Part and Timing Information
@@ -158,13 +153,13 @@ Start Loading Part and Timing Information
 Loading part: xczu5ev-fbvb900-2-e
 INFO: [Synth 8-6742] Reading net delay rules and data
 ---------------------------------------------------------------------------------
-Finished Loading Part and Timing Information : Time (s): cpu = 00:00:26 ; elapsed = 00:00:27 . Memory (MB): peak = 2104.176 ; gain = 454.754
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:30 ; elapsed = 00:00:33 . Memory (MB): peak = 2103.594 ; gain = 452.543
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Applying 'set_property' XDC Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:26 ; elapsed = 00:00:27 . Memory (MB): peak = 2104.176 ; gain = 454.754
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:30 ; elapsed = 00:00:33 . Memory (MB): peak = 2103.594 ; gain = 452.543
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-802] inferred FSM for state register 'state_reg' in module 'tmds_encoder'
 ---------------------------------------------------------------------------------------------------
@@ -177,7 +172,7 @@ INFO: [Synth 8-802] inferred FSM for state register 'state_reg' in module 'tmds_
 ---------------------------------------------------------------------------------------------------
 INFO: [Synth 8-3354] encoded FSM with state register 'state_reg' using encoding 'sequential' in module 'tmds_encoder'
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:27 ; elapsed = 00:00:29 . Memory (MB): peak = 2104.176 ; gain = 454.754
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:32 ; elapsed = 00:00:35 . Memory (MB): peak = 2103.594 ; gain = 452.543
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start RTL Component Statistics 
@@ -185,8 +180,8 @@ Start RTL Component Statistics
 Detailed RTL Component Info : 
 +---Adders : 
 	   2 Input   32 Bit       Adders := 5     
-	   2 Input   12 Bit       Adders := 40    
-	   2 Input   11 Bit       Adders := 32    
+	   2 Input   12 Bit       Adders := 38    
+	   2 Input   11 Bit       Adders := 31    
 	   3 Input   11 Bit       Adders := 24    
 	   2 Input    9 Bit       Adders := 1     
 	   5 Input    8 Bit       Adders := 6     
@@ -214,13 +209,12 @@ Detailed RTL Component Info :
 	                1 Bit    Registers := 28    
 +---Muxes : 
 	   5 Input   24 Bit        Muxes := 14    
-	   3 Input   24 Bit        Muxes := 1     
-	   2 Input   24 Bit        Muxes := 12    
+	   2 Input   24 Bit        Muxes := 8     
 	   9 Input   24 Bit        Muxes := 1     
 	   2 Input   16 Bit        Muxes := 2     
 	   3 Input   16 Bit        Muxes := 2     
 	   5 Input   11 Bit        Muxes := 11    
-	   2 Input   11 Bit        Muxes := 61    
+	   2 Input   11 Bit        Muxes := 60    
 	   4 Input   10 Bit        Muxes := 15    
 	   2 Input   10 Bit        Muxes := 12    
 	   4 Input    9 Bit        Muxes := 3     
@@ -232,7 +226,7 @@ Detailed RTL Component Info :
 	   2 Input    3 Bit        Muxes := 3     
 	   4 Input    2 Bit        Muxes := 3     
 	   2 Input    2 Bit        Muxes := 3     
-	   2 Input    1 Bit        Muxes := 38    
+	   2 Input    1 Bit        Muxes := 35    
 	   4 Input    1 Bit        Muxes := 9     
 ---------------------------------------------------------------------------------
 Finished RTL Component Statistics 
@@ -275,11 +269,6 @@ DSP Report: operator draw_ghost3 is absorbed into DSP draw_ghost3.
 DSP Report: Generating DSP draw_ghost2, operation Mode is: C+A*B.
 DSP Report: operator draw_ghost2 is absorbed into DSP draw_ghost2.
 DSP Report: operator draw_ghost33 is absorbed into DSP draw_ghost2.
-DSP Report: Generating DSP draw_pacman3, operation Mode is: A*B.
-DSP Report: operator draw_pacman3 is absorbed into DSP draw_pacman3.
-DSP Report: Generating DSP draw_pacman2, operation Mode is: C+A*B.
-DSP Report: operator draw_pacman2 is absorbed into DSP draw_pacman2.
-DSP Report: operator draw_pacman3 is absorbed into DSP draw_pacman2.
 WARNING: [Synth 8-3917] design fpga_top has port pin_hdmi_tx_pixclk_sel_n_o driven by constant 0
 WARNING: [Synth 8-3917] design fpga_top has port pin_hdmi_rx_oe_o driven by constant 0
 WARNING: [Synth 8-3917] design fpga_top has port pin_hdmi_tx_cec_o driven by constant 1
@@ -314,15 +303,13 @@ WARNING: [Synth 8-7129] Port pin_hdmi_rx_clk_i_p in module fpga_top is either un
 WARNING: [Synth 8-7129] Port pin_hdmi_tx_fault_n_i in module fpga_top is either unconnected or has no load
 WARNING: [Synth 8-7129] Port pin_hdmi_tx_hpd_i in module fpga_top is either unconnected or has no load
 ---------------------------------------------------------------------------------
-Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:54 ; elapsed = 00:00:56 . Memory (MB): peak = 2390.730 ; gain = 741.309
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:59 ; elapsed = 00:01:03 . Memory (MB): peak = 2405.844 ; gain = 754.793
 ---------------------------------------------------------------------------------
  Sort Area is  draw_ghost32_2 : 0 0 : 1106 1106 : Used 1 time 0
- Sort Area is  draw_pacman2_f : 0 0 : 1093 1093 : Used 1 time 0
  Sort Area is  draw_ghost02_a : 0 0 : 1084 1084 : Used 1 time 0
  Sort Area is  draw_ghost12_8 : 0 0 : 1084 1084 : Used 1 time 0
  Sort Area is  draw_ghost22_5 : 0 0 : 1084 1084 : Used 1 time 0
  Sort Area is  draw_ghost2_c : 0 0 : 1084 1084 : Used 1 time 0
- Sort Area is  draw_pacman3_d : 0 0 : 1052 1052 : Used 1 time 0
  Sort Area is  draw_ghost03_9 : 0 0 : 863 863 : Used 1 time 0
  Sort Area is  draw_ghost13_7 : 0 0 : 863 863 : Used 1 time 0
  Sort Area is  draw_ghost23_4 : 0 0 : 863 863 : Used 1 time 0
@@ -346,8 +333,6 @@ DSP: Preliminary Mapping Report (see note below. The ' indicates corresponding R
 |video_uut   | C+A*B           | 12     | 12     | 12     | -      | 12     | 0    | 0    | 0    | -    | -     | 0    | 0    | 
 |video_uut   | A*B             | 11     | 11     | -      | -      | 22     | 0    | 0    | -    | -    | -     | 0    | 0    | 
 |video_uut   | C+A*B           | 12     | 12     | 12     | -      | 12     | 0    | 0    | 0    | -    | -     | 0    | 0    | 
-|video_uut   | A*B             | 12     | 12     | -      | -      | 24     | 0    | 0    | -    | -    | -     | 0    | 0    | 
-|video_uut   | C+A*B           | 12     | 12     | 14     | -      | 14     | 0    | 0    | 0    | -    | -     | 0    | 0    | 
 +------------+-----------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
 
 Note: The table above is a preliminary report that shows the DSPs inferred at the current stage of the synthesis flow. Some DSP may be reimplemented as non DSP primitives later in the synthesis flow. Multiple instantiated DSPs are reported only once.
@@ -358,19 +343,19 @@ Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
 Start Applying XDC Timing Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Applying XDC Timing Constraints : Time (s): cpu = 00:01:06 ; elapsed = 00:01:09 . Memory (MB): peak = 2787.805 ; gain = 1138.383
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:01:13 ; elapsed = 00:01:18 . Memory (MB): peak = 2792.914 ; gain = 1141.863
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Timing Optimization
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Timing Optimization : Time (s): cpu = 00:01:18 ; elapsed = 00:01:22 . Memory (MB): peak = 2896.988 ; gain = 1247.566
+Finished Timing Optimization : Time (s): cpu = 00:01:25 ; elapsed = 00:01:30 . Memory (MB): peak = 2890.520 ; gain = 1239.469
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Technology Mapping
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Technology Mapping : Time (s): cpu = 00:01:20 ; elapsed = 00:01:23 . Memory (MB): peak = 2906.055 ; gain = 1256.633
+Finished Technology Mapping : Time (s): cpu = 00:01:26 ; elapsed = 00:01:32 . Memory (MB): peak = 2899.586 ; gain = 1248.535
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start IO Insertion
@@ -388,37 +373,37 @@ Start Final Netlist Cleanup
 Finished Final Netlist Cleanup
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished IO Insertion : Time (s): cpu = 00:01:24 ; elapsed = 00:01:28 . Memory (MB): peak = 3076.934 ; gain = 1427.512
+Finished IO Insertion : Time (s): cpu = 00:01:31 ; elapsed = 00:01:36 . Memory (MB): peak = 3080.625 ; gain = 1429.574
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Instances
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Instances : Time (s): cpu = 00:01:24 ; elapsed = 00:01:28 . Memory (MB): peak = 3076.934 ; gain = 1427.512
+Finished Renaming Generated Instances : Time (s): cpu = 00:01:31 ; elapsed = 00:01:36 . Memory (MB): peak = 3080.625 ; gain = 1429.574
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Rebuilding User Hierarchy
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Rebuilding User Hierarchy : Time (s): cpu = 00:01:24 ; elapsed = 00:01:28 . Memory (MB): peak = 3076.934 ; gain = 1427.512
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:01:31 ; elapsed = 00:01:37 . Memory (MB): peak = 3080.625 ; gain = 1429.574
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Ports
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Ports : Time (s): cpu = 00:01:24 ; elapsed = 00:01:28 . Memory (MB): peak = 3076.934 ; gain = 1427.512
+Finished Renaming Generated Ports : Time (s): cpu = 00:01:31 ; elapsed = 00:01:37 . Memory (MB): peak = 3080.625 ; gain = 1429.574
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:01:24 ; elapsed = 00:01:28 . Memory (MB): peak = 3076.934 ; gain = 1427.512
+Finished Handling Custom Attributes : Time (s): cpu = 00:01:31 ; elapsed = 00:01:37 . Memory (MB): peak = 3080.625 ; gain = 1429.574
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Nets
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Nets : Time (s): cpu = 00:01:24 ; elapsed = 00:01:28 . Memory (MB): peak = 3076.934 ; gain = 1427.512
+Finished Renaming Generated Nets : Time (s): cpu = 00:01:31 ; elapsed = 00:01:37 . Memory (MB): peak = 3080.625 ; gain = 1429.574
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start ROM, RAM, DSP, Shift Register and Retiming Reporting
@@ -430,7 +415,7 @@ Static Shift Register Report:
 +----------------+--------------------------------------------------------+--------+-------+--------------+--------------------+-------------------+--------+---------+
 |kvm_vid_top_rgb | tpg_bars_rgb/tx_vh_d3_reg[1]                           | 3      | 2     | NO           | NO                 | YES               | 2      | 0       | 
 |kvm_vid_top_rgb | hdmi_tx_1080p/enc_b/pipe_delay/DELAY_NE0.sr_reg[10][7] | 10     | 2     | NO           | NO                 | YES               | 2      | 0       | 
-|kvm_vid_top_rgb | hdmi_tx_1080p/enc_g/pipe_delay/DELAY_NE0.sr_reg[10][7] | 10     | 4     | NO           | NO                 | YES               | 4      | 0       | 
+|kvm_vid_top_rgb | hdmi_tx_1080p/enc_g/pipe_delay/DELAY_NE0.sr_reg[10][7] | 10     | 6     | NO           | NO                 | YES               | 6      | 0       | 
 |kvm_vid_top_rgb | hdmi_tx_1080p/enc_r/pipe_delay/DELAY_NE0.sr_reg[10][7] | 10     | 3     | NO           | NO                 | YES               | 3      | 0       | 
 |kvm_vid_top_rgb | hsync_d_reg[2]                                         | 3      | 1     | NO           | NO                 | YES               | 1      | 0       | 
 |kvm_vid_top_rgb | vsync_d_reg[2]                                         | 3      | 1     | NO           | NO                 | YES               | 1      | 0       | 
@@ -458,8 +443,6 @@ DSP Final Report (the ' indicates corresponding REG is set)
 |video_uut   | C+A*B       | 12     | 12     | 12     | -      | 12     | 0    | 0    | 0    | -    | -     | 0    | 0    | 
 |video_uut   | A*B         | 11     | 11     | -      | -      | 22     | 0    | 0    | -    | -    | -     | 0    | 0    | 
 |video_uut   | C+A*B       | 12     | 12     | 12     | -      | 12     | 0    | 0    | 0    | -    | -     | 0    | 0    | 
-|video_uut   | A*B         | 30     | 18     | -      | -      | 24     | 0    | 0    | -    | -    | -     | 0    | 0    | 
-|video_uut   | C+A*B       | 30     | 18     | 48     | -      | 14     | 0    | 0    | 0    | -    | -     | 0    | 0    | 
 +------------+-------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
 
 
@@ -482,58 +465,56 @@ Report Cell Usage:
 |4     |BUFG            |     1|
 |5     |BUFG_GT         |     1|
 |6     |CARRY8          |   192|
-|7     |DSP_ALU         |    12|
-|8     |DSP_A_B_DATA    |    12|
-|9     |DSP_C_DATA      |    12|
-|11    |DSP_MULTIPLIER  |    12|
-|13    |DSP_M_DATA      |    12|
-|14    |DSP_OUTPUT      |    12|
-|15    |DSP_PREADD      |    12|
-|16    |DSP_PREADD_DATA |    12|
+|7     |DSP_ALU         |    10|
+|8     |DSP_A_B_DATA    |    10|
+|9     |DSP_C_DATA      |    10|
+|11    |DSP_MULTIPLIER  |    10|
+|13    |DSP_M_DATA      |    10|
+|14    |DSP_OUTPUT      |    10|
+|15    |DSP_PREADD      |    10|
+|16    |DSP_PREADD_DATA |    10|
 |18    |IBUFDS_GTE4     |     1|
-|19    |LUT1            |    54|
-|20    |LUT2            |   872|
-|21    |LUT3            |   129|
-|22    |LUT4            |   474|
-|23    |LUT5            |   281|
-|24    |LUT6            |   683|
-|25    |MUXF7           |     1|
-|26    |SRL16E          |    14|
-|27    |FDPE            |     5|
-|28    |FDRE            |   632|
-|29    |FDSE            |    95|
-|30    |IBUF            |     4|
-|31    |IBUFDS          |     1|
-|32    |OBUF            |     8|
+|19    |LUT1            |    52|
+|20    |LUT2            |   858|
+|21    |LUT3            |   173|
+|22    |LUT4            |   426|
+|23    |LUT5            |   241|
+|24    |LUT6            |   642|
+|25    |SRL16E          |    16|
+|26    |FDPE            |     5|
+|27    |FDRE            |   644|
+|28    |FDSE            |    87|
+|29    |IBUF            |     4|
+|30    |IBUFDS          |     1|
+|31    |OBUF            |     8|
 +------+----------------+------+
 ---------------------------------------------------------------------------------
-Finished Writing Synthesis Report : Time (s): cpu = 00:01:24 ; elapsed = 00:01:28 . Memory (MB): peak = 3076.934 ; gain = 1427.512
+Finished Writing Synthesis Report : Time (s): cpu = 00:01:31 ; elapsed = 00:01:37 . Memory (MB): peak = 3080.625 ; gain = 1429.574
 ---------------------------------------------------------------------------------
 Synthesis finished with 0 errors, 0 critical warnings and 33 warnings.
-Synthesis Optimization Runtime : Time (s): cpu = 00:01:05 ; elapsed = 00:01:20 . Memory (MB): peak = 3076.934 ; gain = 1330.785
-Synthesis Optimization Complete : Time (s): cpu = 00:01:25 ; elapsed = 00:01:29 . Memory (MB): peak = 3076.934 ; gain = 1427.512
+Synthesis Optimization Runtime : Time (s): cpu = 00:01:09 ; elapsed = 00:01:28 . Memory (MB): peak = 3080.625 ; gain = 1334.066
+Synthesis Optimization Complete : Time (s): cpu = 00:01:32 ; elapsed = 00:01:37 . Memory (MB): peak = 3080.625 ; gain = 1429.574
 INFO: [Project 1-571] Translating synthesized netlist
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.036 . Memory (MB): peak = 3076.934 ; gain = 0.000
-INFO: [Netlist 29-17] Analyzing 211 Unisim elements for replacement
-INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.051 . Memory (MB): peak = 3080.625 ; gain = 0.000
+INFO: [Netlist 29-17] Analyzing 208 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 1 CPU seconds
 INFO: [Project 1-570] Preparing netlist for logic optimization
 INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
 INFO: [Opt 31-441] Inserted BUFG_GT_SYNC BUFG_GT_SYNC for BUFG_GT bufg_gt_inst
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.001 . Memory (MB): peak = 3076.934 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.002 . Memory (MB): peak = 3080.625 ; gain = 0.000
 INFO: [Project 1-111] Unisim Transformation Summary:
-  A total of 18 instances were transformed.
+  A total of 16 instances were transformed.
   BUFG => BUFGCE: 1 instance 
-  DSP48E2 => DSP48E2 (DSP_ALU, DSP_A_B_DATA, DSP_C_DATA, DSP_MULTIPLIER, DSP_M_DATA, DSP_OUTPUT, DSP_PREADD, DSP_PREADD_DATA): 12 instances
+  DSP48E2 => DSP48E2 (DSP_ALU, DSP_A_B_DATA, DSP_C_DATA, DSP_MULTIPLIER, DSP_M_DATA, DSP_OUTPUT, DSP_PREADD, DSP_PREADD_DATA): 10 instances
   IBUF => IBUF (IBUFCTRL, INBUF): 4 instances
   IBUFDS => IBUFDS (DIFFINBUF, IBUFCTRL): 1 instance 
 
-Synth Design complete | Checksum: 5da78475
+Synth Design complete | Checksum: 9ea9bbe3
 INFO: [Common 17-83] Releasing license: Synthesis
-49 Infos, 87 Warnings, 2 Critical Warnings and 0 Errors encountered.
+48 Infos, 85 Warnings, 0 Critical Warnings and 0 Errors encountered.
 synth_design completed successfully
-synth_design: Time (s): cpu = 00:01:34 ; elapsed = 00:01:44 . Memory (MB): peak = 3076.934 ; gain = 2474.352
-INFO: [runtcl-6] Synthesis results are not added to the cache due to CRITICAL_WARNING
-Write ShapeDB Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.014 . Memory (MB): peak = 3076.934 ; gain = 0.000
+synth_design: Time (s): cpu = 00:01:45 ; elapsed = 00:01:57 . Memory (MB): peak = 3080.625 ; gain = 2475.496
+Write ShapeDB Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.020 . Memory (MB): peak = 3080.625 ; gain = 0.000
 INFO: [Common 17-1381] The checkpoint 'C:/Users/ahmed/Downloads/uOttaHack_FPGA/fpga_top/fpga_top.runs/synth_1/fpga_top.dcp' has been generated.
 INFO: [Vivado 12-24828] Executing command : report_utilization -file fpga_top_utilization_synth.rpt -pb fpga_top_utilization_synth.pb
-INFO: [Common 17-206] Exiting Vivado at Sat Jan 17 23:07:10 2026...
+INFO: [Common 17-206] Exiting Vivado at Sun Jan 18 01:18:21 2026...
