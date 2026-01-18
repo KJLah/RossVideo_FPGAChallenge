@@ -33,70 +33,59 @@ module video_uut (
     output wire [23:0]  vid_rgb_o        // [23:0] = R[23:16], G[15:8], B[7:0]
 ); 
 
-localparam [23:0] RGB_COLOUR = 24'hD0_10_80; // R=128, G=16,  B=128
+// Delayed signals for edge detection
+reg HD, VD;  // Horizontal Delay, Vertical Delay
+wire HR, HF, VR, VF;  // Horizontal Rising/Falling, Vertical Rising/Falling
 
-// Track pixel position
-reg [10:0] pixel_x, pixel_y;
+// Counters
+reg [11:0] HCNT;  // Horizontal counter: 0-1920
+reg [10:0] VCNT;  // Vertical counter: 0-1024 (actually 0-1079 for 1080p)
 
-// Animation counter (counts frames for slow animation)
-reg [25:0] frame_counter;
-
-// Box position (will move)
-reg [10:0] box_x, box_y;
-reg        box_dir_x, box_dir_y;  // Direction: 1 or 0
+// Edge detection
+assign HR = ~HD && vh_blank_i[0];  // Horizontal Rising edge (entering blank)
+assign HF = HD && ~vh_blank_i[0];  // Horizontal Falling edge (leaving blank)
+assign VR = ~VD && vh_blank_i[1];  // Vertical Rising edge (entering blank)
+assign VF = VD && ~vh_blank_i[1];  // Vertical Falling edge (leaving blank)
 
 reg [23:0]  vid_rgb_d1;
 reg [2:0]   dvh_sync_d1;
 
 always @(posedge clk_i) begin
     if (rst_i) begin
-        pixel_x <= 0;
-        pixel_y <= 0;
-        frame_counter <= 0;
-        box_x <= 200;  // Start position
-        box_y <= 200;
-        box_dir_x <= 1;
-        box_dir_y <= 1;
+        HD <= 1'b0;
+        VD <= 1'b0;
+        HCNT <= 12'd0;
+        VCNT <= 11'd0;
+        vid_rgb_d1 <= 24'h00_00_00;
+        dvh_sync_d1 <= 3'b000;
     end else if(cen_i) begin
-        // Track pixel position
-        if (vh_blank_i[0]) begin  // Hblank - new line
-            pixel_x <= 0;
-            if (vh_blank_i[1]) begin  // Vblank - new frame
-                pixel_y <= 0;
-                // Update animation once per frame
-                frame_counter <= frame_counter + 1;
-                
-                // Move box every 2 frames (slower animation)
-                if (frame_counter[1:0] == 2'b00) begin
-                    // Move box X
-                    if (box_dir_x == 1) begin
-                        if (box_x < 1700) box_x <= box_x + 10;
-                        else box_dir_x <= 0;  // Bounce right
-                    end else begin
-                        if (box_x > 10) box_x <= box_x - 10;
-                        else box_dir_x <= 1;  // Bounce left
-                    end
-                    
-                    // Move box Y
-                    if (box_dir_y == 1) begin
-                        if (box_y < 900) box_y <= box_y + 10;
-                        else box_dir_y <= 0;  // Bounce bottom
-                    end else begin
-                        if (box_y > 10) box_y <= box_y - 10;
-                        else box_dir_y <= 1;  // Bounce top
-                    end
-                end
-            end else begin
-                pixel_y <= pixel_y + 1;
-            end
-        end else begin
-            pixel_x <= pixel_x + 1;
+        // Update delayed signals
+        HD <= vh_blank_i[0];  // Horizontal blank delay
+        VD <= vh_blank_i[1];  // Vertical blank delay
+        
+        // Horizontal counter: 0-1920
+        // Reset on HF (falling edge = leaving blank = start of visible line)
+        // Increment only when not blanking
+        if (HF) begin  // Horizontal falling edge (leaving blank = start of visible line)
+            HCNT <= 12'd0;
+        end else if (!vh_blank_i[0]) begin  // Not blanking - increment
+            HCNT <= HCNT + 1;
         end
         
-        // Draw: white box, black background
-        if ((pixel_x >= box_x && pixel_x < box_x + 200) &&
-            (pixel_y >= box_y && pixel_y < box_y + 200)) begin
-            vid_rgb_d1 <= 24'hFF_FF_FF;  // White box
+        // Vertical counter: 0-1079 (for 1080p)
+        // Reset on VF (falling edge = leaving blank = start of frame)
+        // Increment on HR (rising edge = entering blank = end of line)
+        if (VF) begin  // Vertical falling edge (leaving blank = start of frame)
+            VCNT <= 11'd0;
+        end else if (HR) begin  // Horizontal rising edge (entering blank = end of line)
+            VCNT <= VCNT + 1;
+        end
+        
+        // Draw static 50x50 square in top right
+        // Top right: X from 1870 to 1920 (1920-50=1870), Y from 0 to 50
+        if ((HCNT >= 12'd1870 && HCNT < 12'd1920) &&
+            (VCNT >= 11'd0 && VCNT < 11'd50)) begin
+            vid_rgb_d1 <= 24'hFF_FF_FF;  // White square
         end else begin
             vid_rgb_d1 <= 24'h00_00_00;  // Black background
         end
