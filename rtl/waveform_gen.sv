@@ -7,9 +7,9 @@ module waveform_gen (
     output logic [7:0]  ecg_sample
 );
 
-    reg [7:0] ecg_mem [0:255];
+    (* ram_init_file = "ecg_data.mem" *) reg [7:0] ecg_mem [0:255];
     initial begin
-        $readmemh("ecg_data.mem", ecg_mem);
+        $readmemh("rtl/ecg_data.mem", ecg_mem);
     end
 
     reg [7:0] index;
@@ -23,11 +23,14 @@ module waveform_gen (
 
     assign ecg_sample = ecg_mem[index];
 
-    // map 0–255 → 0–479
+    // map 0–255 → 0–479 (with margin to avoid edge overflow)
     wire [9:0] ecg_y;
-    assign ecg_y = 480 - ((ecg_sample * 480) >> 8);
+    assign ecg_y = 10'd40 + (10'd400 - ((ecg_sample * 10'd400) >> 8));
 
-    assign draw = (x < 640) &&
-                  ((y == ecg_y) || (y == ecg_y+1) || (y == ecg_y-1));
+    // Draw 3-pixel thick line with bounds checking to prevent underflow
+    assign draw = (x < 640) && (y < 480) &&
+                  ((y == ecg_y) || 
+                   (y == ecg_y + 1) || 
+                   ((ecg_y > 0) && (y == ecg_y - 1)));
 
 endmodule

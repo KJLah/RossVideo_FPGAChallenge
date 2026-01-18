@@ -1,24 +1,25 @@
-// Tang Nano 9K Pin Constraints for ECG Neural Network Display
+// Tang Nano 9K Pin Constraints for ECG Display
 // Board: Sipeed Tang Nano 9K (GW1NR-9C)
+// NOTE: Adjust VGA pins based on your PMOD/breakout board connection
 
-// System Clock (27MHz)
+// System Clock (27MHz on-board crystal)
 IO_LOC "clk" 52;
-IO_PORT "clk" PULL_MODE=UP;
+IO_PORT "clk" IO_TYPE=LVCMOS33 PULL_MODE=UP;
 
-// Reset Button (directly usable)
+// Reset Button (directly active high when pressed)
 IO_LOC "reset" 4;
-IO_PORT "reset" PULL_MODE=DOWN;
+IO_PORT "reset" IO_TYPE=LVCMOS33 PULL_MODE=UP;
 
-// VGA Sync Signals
-IO_LOC "hsync" 25;
-IO_LOC "vsync" 26;
-IO_PORT "hsync" DRIVE=8;
-IO_PORT "vsync" DRIVE=8;
+// VGA Sync Signals (GPIO Header)
+IO_LOC "hsync" 77;
+IO_LOC "vsync" 76;
+IO_PORT "hsync" IO_TYPE=LVCMOS33 DRIVE=8;
+IO_PORT "vsync" IO_TYPE=LVCMOS33 DRIVE=8;
 
-// RGB Output (3-bit VGA)
-IO_LOC "rgb[2]" 27;
-IO_LOC "rgb[1]" 28;
-IO_LOC "rgb[0]" 29;
-IO_PORT "rgb[2]" DRIVE=8;
-IO_PORT "rgb[1]" DRIVE=8;
-IO_PORT "rgb[0]" DRIVE=8;
+// RGB Output (3-bit VGA - GPIO Header)
+IO_LOC "rgb[2]" 75;
+IO_LOC "rgb[1]" 74;
+IO_LOC "rgb[0]" 73;
+IO_PORT "rgb[2]" IO_TYPE=LVCMOS33 DRIVE=8;
+IO_PORT "rgb[1]" IO_TYPE=LVCMOS33 DRIVE=8;
+IO_PORT "rgb[0]" IO_TYPE=LVCMOS33 DRIVE=8;

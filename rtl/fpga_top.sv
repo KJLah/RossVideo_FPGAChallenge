@@ -1,5 +1,5 @@
 module fpga_top (
-    input  logic clk,       // 25 MHz
+    input  logic clk,       // 27 MHz (Tang Nano 9K) - VGA timing slightly fast
     input  logic reset,
     output logic hsync,
     output logic vsync,
