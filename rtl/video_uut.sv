@@ -144,34 +144,32 @@ generate
     end
 endgenerate
 
-// Function to draw maze walls and letters (smaller, centered ROSS)
+// Function to draw maze walls and letters (static Pac-Man style)
 function [23:0] draw_maze;
     input [10:0] px, py;  // Pixel coordinates
-    input signed [10:0] offset_y;  // Vertical offset for animation (signed)
-    reg signed [10:0] adj_y;
+    input signed [10:0] offset_y;  // Not used (kept for compatibility)
     reg [10:0] center_x, center_y;
     reg [10:0] letter_start_x;
     begin
         center_x = 960;  // Screen center X
         center_y = 540;  // Screen center Y
-        adj_y = $signed(py) - offset_y;  // Subtract offset to make maze move
         draw_maze = 24'h0;  // Transparent by default
         
-        // Draw Pac-Man style borders around the screen
+        // Draw Pac-Man style borders around the screen (static)
         // Top border
-        if (adj_y < 50 && px >= 50 && px < 1870) begin
+        if (py < 50 && px >= 50 && px < 1870) begin
             draw_maze = COLOR_MAZE;
         end
         // Bottom border
-        if (adj_y >= 1030 && px >= 50 && px < 1870) begin
+        if (py >= 1030 && px >= 50 && px < 1870) begin
             draw_maze = COLOR_MAZE;
         end
         // Left border
-        if (px < 50 && adj_y >= 50 && adj_y < 1030) begin
+        if (px < 50 && py >= 50 && py < 1030) begin
             draw_maze = COLOR_MAZE;
         end
         // Right border
-        if (px >= 1870 && adj_y >= 50 && adj_y < 1030) begin
+        if (px >= 1870 && py >= 50 && py < 1030) begin
             draw_maze = COLOR_MAZE;
         end
         
@@ -179,51 +177,51 @@ function [23:0] draw_maze;
         // Maze area: roughly 600x300 pixels centered
         letter_start_x = center_x - 300;  // Start of letters
         
-        // Draw "ROSS" letters as maze walls (smaller scale)
-        // R - First letter (fixed)
-        if (px >= letter_start_x && px < letter_start_x + 120 && adj_y >= center_y - 100 && adj_y < center_y + 100) begin
+        // Draw "ROSS" letters as maze walls/obstacles (static)
+        // R - First letter
+        if (px >= letter_start_x && px < letter_start_x + 120 && py >= center_y - 100 && py < center_y + 100) begin
             // R shape walls - proper R shape
-            if ((px >= letter_start_x && px < letter_start_x + 15 && adj_y >= center_y - 100 && adj_y < center_y + 100) ||  // Left vertical
-                (px >= letter_start_x + 15 && px < letter_start_x + 105 && adj_y >= center_y - 100 && adj_y < center_y - 85) ||  // Top horizontal
-                (px >= letter_start_x + 15 && px < letter_start_x + 105 && adj_y >= center_y - 15 && adj_y < center_y) ||  // Middle horizontal
-                (px >= letter_start_x + 105 && px < letter_start_x + 120 && adj_y >= center_y - 100 && adj_y < center_y - 15) ||  // Top right vertical
-                (px >= letter_start_x + 60 && px < letter_start_x + 75 && adj_y >= center_y && adj_y < center_y + 100) ||  // Bottom right diagonal
-                (px >= letter_start_x + 75 && px < letter_start_x + 90 && adj_y >= center_y + 50 && adj_y < center_y + 100)) begin  // Bottom right vertical
+            if ((px >= letter_start_x && px < letter_start_x + 15 && py >= center_y - 100 && py < center_y + 100) ||  // Left vertical
+                (px >= letter_start_x + 15 && px < letter_start_x + 105 && py >= center_y - 100 && py < center_y - 85) ||  // Top horizontal
+                (px >= letter_start_x + 15 && px < letter_start_x + 105 && py >= center_y - 15 && py < center_y) ||  // Middle horizontal
+                (px >= letter_start_x + 105 && px < letter_start_x + 120 && py >= center_y - 100 && py < center_y - 15) ||  // Top right vertical
+                (px >= letter_start_x + 60 && px < letter_start_x + 75 && py >= center_y && py < center_y + 100) ||  // Bottom right diagonal
+                (px >= letter_start_x + 75 && px < letter_start_x + 90 && py >= center_y + 50 && py < center_y + 100)) begin  // Bottom right vertical
                 draw_maze = COLOR_MAZE;
             end
         end
         
         // O - Second letter
-        if (px >= letter_start_x + 140 && px < letter_start_x + 260 && adj_y >= center_y - 100 && adj_y < center_y + 100) begin
+        if (px >= letter_start_x + 140 && px < letter_start_x + 260 && py >= center_y - 100 && py < center_y + 100) begin
             // O shape walls (circle/oval)
-            if ((px >= letter_start_x + 140 && px < letter_start_x + 155 && adj_y >= center_y - 100 && adj_y < center_y + 100) ||
-                (px >= letter_start_x + 245 && px < letter_start_x + 260 && adj_y >= center_y - 100 && adj_y < center_y + 100) ||
-                (px >= letter_start_x + 155 && px < letter_start_x + 245 && adj_y >= center_y - 100 && adj_y < center_y - 85) ||
-                (px >= letter_start_x + 155 && px < letter_start_x + 245 && adj_y >= center_y + 85 && adj_y < center_y + 100)) begin
+            if ((px >= letter_start_x + 140 && px < letter_start_x + 155 && py >= center_y - 100 && py < center_y + 100) ||
+                (px >= letter_start_x + 245 && px < letter_start_x + 260 && py >= center_y - 100 && py < center_y + 100) ||
+                (px >= letter_start_x + 155 && px < letter_start_x + 245 && py >= center_y - 100 && py < center_y - 85) ||
+                (px >= letter_start_x + 155 && px < letter_start_x + 245 && py >= center_y + 85 && py < center_y + 100)) begin
                 draw_maze = COLOR_MAZE;
             end
         end
         
         // S - Third letter
-        if (px >= letter_start_x + 280 && px < letter_start_x + 400 && adj_y >= center_y - 100 && adj_y < center_y + 100) begin
+        if (px >= letter_start_x + 280 && px < letter_start_x + 400 && py >= center_y - 100 && py < center_y + 100) begin
             // S shape walls
-            if ((px >= letter_start_x + 280 && px < letter_start_x + 295 && adj_y >= center_y - 100 && adj_y < center_y - 15) ||
-                (px >= letter_start_x + 280 && px < letter_start_x + 400 && adj_y >= center_y - 100 && adj_y < center_y - 85) ||
-                (px >= letter_start_x + 280 && px < letter_start_x + 400 && adj_y >= center_y - 15 && adj_y < center_y) ||
-                (px >= letter_start_x + 385 && px < letter_start_x + 400 && adj_y >= center_y && adj_y < center_y + 100) ||
-                (px >= letter_start_x + 280 && px < letter_start_x + 400 && adj_y >= center_y + 85 && adj_y < center_y + 100)) begin
+            if ((px >= letter_start_x + 280 && px < letter_start_x + 295 && py >= center_y - 100 && py < center_y - 15) ||
+                (px >= letter_start_x + 280 && px < letter_start_x + 400 && py >= center_y - 100 && py < center_y - 85) ||
+                (px >= letter_start_x + 280 && px < letter_start_x + 400 && py >= center_y - 15 && py < center_y) ||
+                (px >= letter_start_x + 385 && px < letter_start_x + 400 && py >= center_y && py < center_y + 100) ||
+                (px >= letter_start_x + 280 && px < letter_start_x + 400 && py >= center_y + 85 && py < center_y + 100)) begin
                 draw_maze = COLOR_MAZE;
             end
         end
         
         // S - Fourth letter
-        if (px >= letter_start_x + 420 && px < letter_start_x + 540 && adj_y >= center_y - 100 && adj_y < center_y + 100) begin
+        if (px >= letter_start_x + 420 && px < letter_start_x + 540 && py >= center_y - 100 && py < center_y + 100) begin
             // S shape walls (same as third)
-            if ((px >= letter_start_x + 420 && px < letter_start_x + 435 && adj_y >= center_y - 100 && adj_y < center_y - 15) ||
-                (px >= letter_start_x + 420 && px < letter_start_x + 540 && adj_y >= center_y - 100 && adj_y < center_y - 85) ||
-                (px >= letter_start_x + 420 && px < letter_start_x + 540 && adj_y >= center_y - 15 && adj_y < center_y) ||
-                (px >= letter_start_x + 525 && px < letter_start_x + 540 && adj_y >= center_y && adj_y < center_y + 100) ||
-                (px >= letter_start_x + 420 && px < letter_start_x + 540 && adj_y >= center_y + 85 && adj_y < center_y + 100)) begin
+            if ((px >= letter_start_x + 420 && px < letter_start_x + 435 && py >= center_y - 100 && py < center_y - 15) ||
+                (px >= letter_start_x + 420 && px < letter_start_x + 540 && py >= center_y - 100 && py < center_y - 85) ||
+                (px >= letter_start_x + 420 && px < letter_start_x + 540 && py >= center_y - 15 && py < center_y) ||
+                (px >= letter_start_x + 525 && px < letter_start_x + 540 && py >= center_y && py < center_y + 100) ||
+                (px >= letter_start_x + 420 && px < letter_start_x + 540 && py >= center_y + 85 && py < center_y + 100)) begin
                 draw_maze = COLOR_MAZE;
             end
         end
@@ -385,25 +383,47 @@ function [23:0] draw_ghost;
     end
 endfunction
 
-// Ghost positions (centered in each letter area, move with maze, don't touch logo)
+// Static positions (no animation)
 wire [23:0] maze_color;
 wire [23:0] ghost_color [0:3];
 wire [23:0] pacman_color;
-wire [10:0] ghost_y_base, pacman_y_base;
+wire [23:0] dot_color;
 wire [10:0] ghost_x [0:3];
-// Position ghosts above the logo (with spacing so they don't touch)
+wire [10:0] ghost_y_static, pacman_y_static;
+// Position ghosts above the logo (static)
 assign ghost_x[0] = 960 - 300 + 60;   // R
 assign ghost_x[1] = 960 - 300 + 200;  // O
 assign ghost_x[2] = 960 - 300 + 340;  // S
 assign ghost_x[3] = 960 - 300 + 480;  // S
-assign ghost_y_base = (maze_offset_y[10]) ? (540 - 150 + (~maze_offset_y + 1)) : (540 - 150 - maze_offset_y);  // Above logo, with spacing
-assign pacman_y_base = ghost_y_base;  // Pac-Man moves with maze
-assign maze_color = draw_maze(HCNT, VCNT, maze_offset_y);
-assign ghost_color[0] = draw_ghost(HCNT, VCNT, ghost_x[0], ghost_y_base, COLOR_GHOST_R, 8'h52);  // R
-assign ghost_color[1] = draw_ghost(HCNT, VCNT, ghost_x[1], ghost_y_base, COLOR_GHOST_O1, 8'h4F);  // O
-assign ghost_color[2] = draw_ghost(HCNT, VCNT, ghost_x[2], ghost_y_base, COLOR_GHOST_S1, 8'h53);  // S
-assign ghost_color[3] = draw_ghost(HCNT, VCNT, ghost_x[3], ghost_y_base, COLOR_GHOST_S2, 8'h53);  // S
-assign pacman_color = draw_pacman(HCNT, VCNT, 960 - 350, pacman_y_base, pacman_mouth_angle);  // Pac-Man to the left
+assign ghost_y_static = 540 - 150;  // Above logo, static
+assign pacman_y_static = 540 + 200;  // Below logo, static
+assign maze_color = draw_maze(HCNT, VCNT, 0);  // No offset
+assign ghost_color[0] = draw_ghost(HCNT, VCNT, ghost_x[0], ghost_y_static, COLOR_GHOST_R, 8'h52);  // R
+assign ghost_color[1] = draw_ghost(HCNT, VCNT, ghost_x[1], ghost_y_static, COLOR_GHOST_O1, 8'h4F);  // O
+assign ghost_color[2] = draw_ghost(HCNT, VCNT, ghost_x[2], ghost_y_static, COLOR_GHOST_S1, 8'h53);  // S
+assign ghost_color[3] = draw_ghost(HCNT, VCNT, ghost_x[3], ghost_y_static, COLOR_GHOST_S2, 8'h53);  // S
+assign pacman_color = draw_pacman(HCNT, VCNT, 960 - 350, pacman_y_static, 8'd32);  // Pac-Man static, mouth half-open
+
+// Function to draw dots/pellets (simple white dots)
+function [23:0] draw_dots;
+    input [10:0] px, py;  // Pixel coordinates
+    input [23:0] maze_pixel;  // Maze color at this pixel
+    begin
+        // Draw small white dots in empty spaces (not on maze walls)
+        if (maze_pixel == 24'h0 &&  // Not a wall
+            px >= 100 && px < 1820 &&  // Within bounds
+            py >= 100 && py < 980 &&
+            (px % 40 >= 0 && px % 40 < 2) &&  // Small dots every 40 pixels
+            (py % 40 >= 0 && py % 40 < 2)) begin
+            draw_dots = 24'hFF_FF_FF;  // White dot
+        end else begin
+            draw_dots = 24'h0;  // Transparent
+        end
+    end
+endfunction
+
+wire [23:0] dot_color;
+assign dot_color = draw_dots(HCNT, VCNT, maze_color);
 
 integer j;
 always @(posedge clk_i) begin
@@ -445,21 +465,11 @@ always @(posedge clk_i) begin
             // Update animation once per frame
             frame_counter <= frame_counter + 1;
             
-            // Animate maze - faster up/down movement (~20 pixels range)
-            // Oscillate between -20 and +20 using frame counter (faster)
-            if (frame_counter[9:0] < 10'd256) begin
-                maze_offset_y <= $signed(frame_counter[6:0] >> 2) - 20;  // -20 to 0 (faster)
-            end else begin
-                maze_offset_y <= $signed(20 - (frame_counter[6:0] >> 2));  // 0 to +20 (faster)
-            end
+            // No maze animation - static
+            maze_offset_y <= 11'd0;
             
-            // Animate Pac-Man mouth (slow biting, smooth)
-            // Mouth opens and closes slowly (cycle through 0-32 for smooth animation)
-            if (frame_counter[10:0] < 11'd512) begin
-                pacman_mouth_angle <= frame_counter[5:0];  // Open mouth (0 to 63)
-            end else begin
-                pacman_mouth_angle <= 11'd63 - frame_counter[5:0];  // Close mouth (63 to 0)
-            end
+            // No Pac-Man mouth animation - static
+            pacman_mouth_angle <= 8'd32;  // Half-open mouth, static
             
             // Animate snowflakes
             for (j = 0; j < NUM_SNOWFLAKES; j = j + 1) begin
@@ -479,11 +489,12 @@ always @(posedge clk_i) begin
             VCNT <= VCNT + 1;
         end
         
-        // Draw background with gradient
-        if (VCNT < 540) begin
-            vid_rgb_d1 <= COLOR_BG_DARK + ((540 - VCNT) >> 4);
-        end else begin
-            vid_rgb_d1 <= COLOR_BG_DARK + ((VCNT - 540) >> 4);
+        // Draw background (black like classic Pac-Man)
+        vid_rgb_d1 <= 24'h00_00_00;  // Black background
+        
+        // Draw dots/pellets first (behind everything)
+        if (dot_color != 24'h0) begin
+            vid_rgb_d1 <= dot_color;
         end
         
         // Draw maze (dark blue)
@@ -491,12 +502,12 @@ always @(posedge clk_i) begin
             vid_rgb_d1 <= maze_color;
         end
         
-        // Draw Pac-Man (on top of maze)
+        // Draw Pac-Man (static, on top of maze)
         if (pacman_color != 24'h0) begin
             vid_rgb_d1 <= pacman_color;
         end
         
-        // Draw ghosts with letters (on top of maze)
+        // Draw ghosts with letters (static, on top of maze)
         for (j = 0; j < 4; j = j + 1) begin
             if (ghost_color[j] != 24'h0) begin
                 vid_rgb_d1 <= ghost_color[j];

@@ -2,7 +2,12 @@
 
 # Ignore the fpga folder
 fpga_top/
-
+*.txt
+*.wdf
+*.rst
+*.vds
+*.log
+*.jou
 *.pb
 *.xml
 *.dcp
