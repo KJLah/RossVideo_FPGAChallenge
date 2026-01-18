@@ -1,21 +1,11 @@
 # All the generate file extensions to ignore in the repo
 
-# Ignore the fpga
+# Ignore the fpga folder
+# fpga_top/
 
-fpga_top/
-
-*.pb
-*.xml
-*.dcp
-# *.xci
-# *.v
-# *.vhdl
-# *.dcp
-# *.xdc
-# *.wdf
-# *.wpc
+# *.pb
 # *.xml
-# *.vh
+#*.dcp
 
 # Ignore the powerpoint
 *.ppt
