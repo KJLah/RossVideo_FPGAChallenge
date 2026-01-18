@@ -64,15 +64,20 @@ reg [3:0]  snowflake_speed [0:NUM_SNOWFLAKES-1];  // Fall speed (1-15)
 localparam [23:0] COLOR_SNOWFLAKE = 24'hFF_FF_FF;  // White snowflakes
 localparam [23:0] COLOR_BG_DARK  = 24'h00_00_20;  // Dark blue background
 localparam [23:0] COLOR_BG       = 24'h00_00_40;  // Slightly lighter blue
-localparam [23:0] COLOR_MAZE      = 24'h00_40_80;  // Dark blue for maze
-localparam [23:0] COLOR_GHOST_R   = 24'hFF_00_00;  // Red ghost (R)
-localparam [23:0] COLOR_GHOST_O1  = 24'hFF_80_00;  // Orange ghost (O)
-localparam [23:0] COLOR_GHOST_S1  = 24'hFF_00_FF;  // Magenta ghost (S)
-localparam [23:0] COLOR_GHOST_S2  = 24'h00_FF_00;  // Green ghost (S)
+localparam [23:0] COLOR_MAZE      = 24'h00_40_80;  // Dark blue for maze borders
+localparam [23:0] COLOR_LETTER_R      = 24'hFF_00_00;  // RED for R
+localparam [23:0] COLOR_LETTER_O      = 24'hFF_FF_00;  // YELLOW for O
+localparam [23:0] COLOR_LETTER_S1     = 24'hFF_80_00;  // ORANGE for first S
+localparam [23:0] COLOR_LETTER_S2     = 24'h00_FF_00;  // GREEN for second S
+localparam [23:0] COLOR_GHOST_BLUE   = 24'h00_80_FF;  // Blue ghost
+localparam [23:0] COLOR_GHOST_RED    = 24'hFF_00_00;  // Red ghost
+localparam [23:0] COLOR_GHOST_PINK   = 24'hFF_B0_FF;  // Pink ghost
+localparam [23:0] COLOR_GHOST_GREEN  = 24'h00_FF_00;  // Green ghost
+localparam [23:0] COLOR_GHOST_PURPLE = 24'h80_00_FF;  // Purple ghost
 localparam [23:0] COLOR_PACMAN    = 24'hFF_FF_00;  // Yellow Pac-Man
 
-// Maze animation offset (faster up/down movement, signed)
-reg signed [10:0] maze_offset_y;
+// Pac-Man animation
+reg signed [10:0] pacman_x_offset;  // Pac-Man horizontal movement offset
 reg [7:0] pacman_mouth_angle;  // Pac-Man mouth animation (0-63 for open/close)
 
 reg [23:0]  vid_rgb_d1;
@@ -150,271 +155,371 @@ function [23:0] draw_maze;
     input signed [10:0] offset_y;  // Not used (kept for compatibility)
     reg [10:0] center_x, center_y;
     reg [10:0] letter_start_x;
+    reg [10:0] letter_width, letter_height;
+    reg [10:0] thickness_outer, thickness_inner;
+    reg [10:0] border_thickness;
+    reg [10:0] corner_size;
     begin
         center_x = 960;  // Screen center X
         center_y = 540;  // Screen center Y
         draw_maze = 24'h0;  // Transparent by default
         
-        // Draw Pac-Man style borders around the screen (static)
-        // Top border
-        if (py < 50 && px >= 50 && px < 1870) begin
+        border_thickness = 15;  // Double-line border thickness
+        corner_size = 30;  // Size of corner rounding
+        
+        // Draw double-lined Pac-Man style borders with rounded corners
+        // OUTER border lines
+        // Top outer border
+        if (py < border_thickness && px >= corner_size && px < 1920 - corner_size) begin
             draw_maze = COLOR_MAZE;
         end
-        // Bottom border
-        if (py >= 1030 && px >= 50 && px < 1870) begin
+        // Bottom outer border
+        if (py >= 1080 - border_thickness && px >= corner_size && px < 1920 - corner_size) begin
             draw_maze = COLOR_MAZE;
         end
-        // Left border
-        if (px < 50 && py >= 50 && py < 1030) begin
+        // Left outer border
+        if (px < border_thickness && py >= corner_size && py < 1080 - corner_size) begin
             draw_maze = COLOR_MAZE;
         end
-        // Right border
-        if (px >= 1870 && py >= 50 && py < 1030) begin
+        // Right outer border
+        if (px >= 1920 - border_thickness && py >= corner_size && py < 1080 - corner_size) begin
             draw_maze = COLOR_MAZE;
         end
         
-        // Smaller maze - centered in middle third of screen
-        // Maze area: roughly 600x300 pixels centered
-        letter_start_x = center_x - 300;  // Start of letters
+        // INNER border lines (double-line effect)
+        // Top inner border
+        if (py >= border_thickness + 10 && py < border_thickness + 15 && px >= corner_size + 10 && px < 1920 - corner_size - 10) begin
+            draw_maze = COLOR_MAZE;
+        end
+        // Bottom inner border
+        if (py >= 1080 - border_thickness - 15 && py < 1080 - border_thickness - 10 && px >= corner_size + 10 && px < 1920 - corner_size - 10) begin
+            draw_maze = COLOR_MAZE;
+        end
+        // Left inner border
+        if (px >= border_thickness + 10 && px < border_thickness + 15 && py >= corner_size + 10 && py < 1080 - corner_size - 10) begin
+            draw_maze = COLOR_MAZE;
+        end
+        // Right inner border
+        if (px >= 1920 - border_thickness - 15 && px < 1920 - border_thickness - 10 && py >= corner_size + 10 && py < 1080 - corner_size - 10) begin
+            draw_maze = COLOR_MAZE;
+        end
         
-        // Draw "ROSS" letters as maze walls/obstacles (static)
-        // R - First letter
-        if (px >= letter_start_x && px < letter_start_x + 120 && py >= center_y - 100 && py < center_y + 100) begin
-            // R shape walls - proper R shape
-            if ((px >= letter_start_x && px < letter_start_x + 15 && py >= center_y - 100 && py < center_y + 100) ||  // Left vertical
-                (px >= letter_start_x + 15 && px < letter_start_x + 105 && py >= center_y - 100 && py < center_y - 85) ||  // Top horizontal
-                (px >= letter_start_x + 15 && px < letter_start_x + 105 && py >= center_y - 15 && py < center_y) ||  // Middle horizontal
-                (px >= letter_start_x + 105 && px < letter_start_x + 120 && py >= center_y - 100 && py < center_y - 15) ||  // Top right vertical
-                (px >= letter_start_x + 60 && px < letter_start_x + 75 && py >= center_y && py < center_y + 100) ||  // Bottom right diagonal
-                (px >= letter_start_x + 75 && px < letter_start_x + 90 && py >= center_y + 50 && py < center_y + 100)) begin  // Bottom right vertical
-                draw_maze = COLOR_MAZE;
+        // Corner pieces (simple L-shaped corners)
+        // Top-left corner
+        if ((px < corner_size && py < border_thickness) || (px < border_thickness && py < corner_size)) begin
+            draw_maze = COLOR_MAZE;
+        end
+        if ((px >= border_thickness + 10 && px < corner_size + 10 && py >= border_thickness + 10 && py < border_thickness + 15) ||
+            (px >= border_thickness + 10 && px < border_thickness + 15 && py >= border_thickness + 10 && py < corner_size + 10)) begin
+            draw_maze = COLOR_MAZE;
+        end
+        // Top-right corner
+        if ((px >= 1920 - corner_size && py < border_thickness) || (px >= 1920 - border_thickness && py < corner_size)) begin
+            draw_maze = COLOR_MAZE;
+        end
+        if ((px >= 1920 - corner_size - 10 && px < 1920 - border_thickness - 10 && py >= border_thickness + 10 && py < border_thickness + 15) ||
+            (px >= 1920 - border_thickness - 15 && px < 1920 - border_thickness - 10 && py >= border_thickness + 10 && py < corner_size + 10)) begin
+            draw_maze = COLOR_MAZE;
+        end
+        // Bottom-left corner
+        if ((px < corner_size && py >= 1080 - border_thickness) || (px < border_thickness && py >= 1080 - corner_size)) begin
+            draw_maze = COLOR_MAZE;
+        end
+        if ((px >= border_thickness + 10 && px < corner_size + 10 && py >= 1080 - border_thickness - 15 && py < 1080 - border_thickness - 10) ||
+            (px >= border_thickness + 10 && px < border_thickness + 15 && py >= 1080 - corner_size - 10 && py < 1080 - border_thickness - 10)) begin
+            draw_maze = COLOR_MAZE;
+        end
+        // Bottom-right corner
+        if ((px >= 1920 - corner_size && py >= 1080 - border_thickness) || (px >= 1920 - border_thickness && py >= 1080 - corner_size)) begin
+            draw_maze = COLOR_MAZE;
+        end
+        if ((px >= 1920 - corner_size - 10 && px < 1920 - border_thickness - 10 && py >= 1080 - border_thickness - 15 && py < 1080 - border_thickness - 10) ||
+            (px >= 1920 - border_thickness - 15 && px < 1920 - border_thickness - 10 && py >= 1080 - corner_size - 10 && py < 1080 - border_thickness - 10)) begin
+            draw_maze = COLOR_MAZE;
+        end
+        
+        // SMALLER ROSS letters for Pac-Man theme - double-lined hollow letters
+        letter_start_x = center_x - 400;  // More centered, smaller span
+        letter_width = 160;  // Smaller width (was 320)
+        letter_height = 250;  // Smaller height (was 600)
+        thickness_outer = 12;  // Thinner outer line
+        thickness_inner = 8;   // Gap between double lines (hollow space)
+        
+        // Draw "ROSS" letters as hollow double-line letters (Smaller for Pac-Man theme)
+        // R - First letter (RED) - Proper pixelized R with double lines, HOLLOW
+        if (px >= letter_start_x && px < letter_start_x + letter_width && py >= center_y - 125 && py < center_y + 125) begin
+            // Outer R shape (pixelized) - Proper R with diagonal leg
+            if ((px >= letter_start_x && px < letter_start_x + thickness_outer && py >= center_y - 125 && py < center_y + 125) ||  // Left vertical (outer) - full height
+                (px >= letter_start_x + thickness_outer && px < letter_start_x + letter_width - 10 && py >= center_y - 125 && py < center_y - 125 + thickness_outer) ||  // Top horizontal (outer)
+                (px >= letter_start_x + letter_width - 10 - thickness_outer && px < letter_start_x + letter_width - 10 && py >= center_y - 125 + thickness_outer && py < center_y - 5) ||  // Top right vertical (outer)
+                (px >= letter_start_x + thickness_outer && px < letter_start_x + letter_width - 10 && py >= center_y - 5 && py < center_y - 5 + thickness_outer) ||  // Middle horizontal (outer)
+                (px >= letter_start_x + letter_width - 10 - thickness_outer && px < letter_start_x + letter_width - 10 && py >= center_y - 5 && py < center_y - 5 + thickness_outer) ||  // Middle right corner (outer)
+                (px >= letter_start_x + letter_width - 40 && px < letter_start_x + letter_width - 28 && py >= center_y + 40 && py < center_y + 125)) begin  // Bottom right leg (outer)
+                draw_maze = COLOR_LETTER_R;  // RED
+            end
+            // Inner R shape (void/hollow for double-line effect) - creates the hollow outline
+            else if ((px >= letter_start_x + thickness_outer && px < letter_start_x + thickness_outer + thickness_inner && py >= center_y - 125 + thickness_outer && py < center_y + 125 - thickness_outer) ||  // Left vertical (inner)
+                     (px >= letter_start_x + thickness_outer + thickness_inner && px < letter_start_x + letter_width - 10 - thickness_outer && py >= center_y - 125 + thickness_outer && py < center_y - 125 + thickness_outer + thickness_inner) ||  // Top horizontal (inner)
+                     (px >= letter_start_x + letter_width - 10 - thickness_outer - thickness_inner && px < letter_start_x + letter_width - 10 - thickness_outer && py >= center_y - 125 + thickness_outer + thickness_inner && py < center_y - 5 - thickness_outer) ||  // Top right vertical (inner)
+                     (px >= letter_start_x + thickness_outer + thickness_inner && px < letter_start_x + letter_width - 10 - thickness_outer && py >= center_y - 5 + thickness_outer && py < center_y - 5 + thickness_outer + thickness_inner) ||  // Middle horizontal (inner)
+                     (px >= letter_start_x + letter_width - 40 + thickness_outer && px < letter_start_x + letter_width - 28 - thickness_outer && py >= center_y + 40 + thickness_outer && py < center_y + 125 - thickness_outer)) begin  // Bottom right leg (inner)
+                draw_maze = COLOR_LETTER_R;  // RED
             end
         end
         
-        // O - Second letter
-        if (px >= letter_start_x + 140 && px < letter_start_x + 260 && py >= center_y - 100 && py < center_y + 100) begin
-            // O shape walls (circle/oval)
-            if ((px >= letter_start_x + 140 && px < letter_start_x + 155 && py >= center_y - 100 && py < center_y + 100) ||
-                (px >= letter_start_x + 245 && px < letter_start_x + 260 && py >= center_y - 100 && py < center_y + 100) ||
-                (px >= letter_start_x + 155 && px < letter_start_x + 245 && py >= center_y - 100 && py < center_y - 85) ||
-                (px >= letter_start_x + 155 && px < letter_start_x + 245 && py >= center_y + 85 && py < center_y + 100)) begin
-                draw_maze = COLOR_MAZE;
+        // O - Second letter (YELLOW) - Proper pixelized O rectangle with double lines
+        if (px >= letter_start_x + 360 && px < letter_start_x + 360 + letter_width && py >= center_y - 300 && py < center_y + 300) begin
+            // Outer O shape (rectangular)
+            if ((px >= letter_start_x + 360 && px < letter_start_x + 360 + thickness_outer && py >= center_y - 300 && py < center_y + 300) ||  // Left vertical (outer)
+                (px >= letter_start_x + 360 + letter_width - thickness_outer && px < letter_start_x + 360 + letter_width && py >= center_y - 300 && py < center_y + 300) ||  // Right vertical (outer)
+                (px >= letter_start_x + 360 + thickness_outer && px < letter_start_x + 360 + letter_width - thickness_outer && py >= center_y - 300 && py < center_y - 300 + thickness_outer) ||  // Top horizontal (outer)
+                (px >= letter_start_x + 360 + thickness_outer && px < letter_start_x + 360 + letter_width - thickness_outer && py >= center_y + 300 - thickness_outer && py < center_y + 300)) begin  // Bottom horizontal (outer)
+                draw_maze = COLOR_LETTER_O;  // YELLOW
+            end
+            // Inner O shape (double-line effect)
+            else if ((px >= letter_start_x + 360 + thickness_outer && px < letter_start_x + 360 + 2*thickness_outer && py >= center_y - 300 + thickness_outer && py < center_y + 300 - thickness_outer) ||  // Left vertical (inner)
+                     (px >= letter_start_x + 360 + letter_width - 2*thickness_outer && px < letter_start_x + 360 + letter_width - thickness_outer && py >= center_y - 300 + thickness_outer && py < center_y + 300 - thickness_outer) ||  // Right vertical (inner)
+                     (px >= letter_start_x + 360 + 2*thickness_outer && px < letter_start_x + 360 + letter_width - 2*thickness_outer && py >= center_y - 300 + thickness_outer && py < center_y - 300 + 2*thickness_outer) ||  // Top horizontal (inner)
+                     (px >= letter_start_x + 360 + 2*thickness_outer && px < letter_start_x + 360 + letter_width - 2*thickness_outer && py >= center_y + 300 - 2*thickness_outer && py < center_y + 300 - thickness_outer)) begin  // Bottom horizontal (inner)
+                draw_maze = COLOR_LETTER_O;  // YELLOW
             end
         end
         
-        // S - Third letter
-        if (px >= letter_start_x + 280 && px < letter_start_x + 400 && py >= center_y - 100 && py < center_y + 100) begin
-            // S shape walls
-            if ((px >= letter_start_x + 280 && px < letter_start_x + 295 && py >= center_y - 100 && py < center_y - 15) ||
-                (px >= letter_start_x + 280 && px < letter_start_x + 400 && py >= center_y - 100 && py < center_y - 85) ||
-                (px >= letter_start_x + 280 && px < letter_start_x + 400 && py >= center_y - 15 && py < center_y) ||
-                (px >= letter_start_x + 385 && px < letter_start_x + 400 && py >= center_y && py < center_y + 100) ||
-                (px >= letter_start_x + 280 && px < letter_start_x + 400 && py >= center_y + 85 && py < center_y + 100)) begin
-                draw_maze = COLOR_MAZE;
+        // S - Third letter (ORANGE) - Proper pixelized S with double lines - FIXED
+        if (px >= letter_start_x + 720 && px < letter_start_x + 720 + letter_width && py >= center_y - 300 && py < center_y + 300) begin
+            // Outer S shape - corrected
+            if ((px >= letter_start_x + 720 && px < letter_start_x + 720 + thickness_outer && py >= center_y - 300 && py < center_y - 10) ||  // Top left vertical (outer)
+                (px >= letter_start_x + 720 + thickness_outer && px < letter_start_x + 720 + letter_width && py >= center_y - 300 && py < center_y - 300 + thickness_outer) ||  // Top horizontal (outer)
+                (px >= letter_start_x + 720 + letter_width - thickness_outer && px < letter_start_x + 720 + letter_width && py >= center_y - 300 + thickness_outer && py < center_y - 10) ||  // Top right vertical (outer)
+                (px >= letter_start_x + 720 && px < letter_start_x + 720 + letter_width && py >= center_y - 10 && py < center_y - 10 + thickness_outer) ||  // Middle horizontal (outer)
+                (px >= letter_start_x + 720 && px < letter_start_x + 720 + thickness_outer && py >= center_y - 10 + thickness_outer && py < center_y + 300 - thickness_outer) ||  // Bottom left vertical (outer)
+                (px >= letter_start_x + 720 + letter_width - thickness_outer && px < letter_start_x + 720 + letter_width && py >= center_y - 10 + thickness_outer && py < center_y + 300) ||  // Bottom right vertical (outer)
+                (px >= letter_start_x + 720 && px < letter_start_x + 720 + letter_width - thickness_outer && py >= center_y + 300 - thickness_outer && py < center_y + 300)) begin  // Bottom horizontal (outer)
+                draw_maze = COLOR_LETTER_S1;  // ORANGE
+            end
+            // Inner S shape (double-line effect)
+            else if ((px >= letter_start_x + 720 + thickness_outer && px < letter_start_x + 720 + 2*thickness_outer && py >= center_y - 300 + thickness_outer && py < center_y - 10 - thickness_inner) ||  // Top left vertical (inner)
+                     (px >= letter_start_x + 720 + 2*thickness_outer && px < letter_start_x + 720 + letter_width - thickness_outer && py >= center_y - 300 + thickness_outer && py < center_y - 300 + 2*thickness_outer) ||  // Top horizontal (inner)
+                     (px >= letter_start_x + 720 + letter_width - 2*thickness_outer && px < letter_start_x + 720 + letter_width - thickness_outer && py >= center_y - 300 + 2*thickness_outer && py < center_y - 10) ||  // Top right vertical (inner)
+                     (px >= letter_start_x + 720 + thickness_outer && px < letter_start_x + 720 + letter_width - thickness_outer && py >= center_y - 10 + thickness_outer && py < center_y - 10 + 2*thickness_outer) ||  // Middle horizontal (inner)
+                     (px >= letter_start_x + 720 + thickness_outer && px < letter_start_x + 720 + 2*thickness_outer && py >= center_y - 10 + 2*thickness_outer && py < center_y + 300 - 2*thickness_outer) ||  // Bottom left vertical (inner)
+                     (px >= letter_start_x + 720 + letter_width - 2*thickness_outer && px < letter_start_x + 720 + letter_width - thickness_outer && py >= center_y - 10 + 2*thickness_outer && py < center_y + 300 - thickness_outer) ||  // Bottom right vertical (inner)
+                     (px >= letter_start_x + 720 + thickness_outer && px < letter_start_x + 720 + letter_width - 2*thickness_outer && py >= center_y + 300 - 2*thickness_outer && py < center_y + 300 - thickness_outer)) begin  // Bottom horizontal (inner)
+                draw_maze = COLOR_LETTER_S1;  // ORANGE
             end
         end
         
-        // S - Fourth letter
-        if (px >= letter_start_x + 420 && px < letter_start_x + 540 && py >= center_y - 100 && py < center_y + 100) begin
-            // S shape walls (same as third)
-            if ((px >= letter_start_x + 420 && px < letter_start_x + 435 && py >= center_y - 100 && py < center_y - 15) ||
-                (px >= letter_start_x + 420 && px < letter_start_x + 540 && py >= center_y - 100 && py < center_y - 85) ||
-                (px >= letter_start_x + 420 && px < letter_start_x + 540 && py >= center_y - 15 && py < center_y) ||
-                (px >= letter_start_x + 525 && px < letter_start_x + 540 && py >= center_y && py < center_y + 100) ||
-                (px >= letter_start_x + 420 && px < letter_start_x + 540 && py >= center_y + 85 && py < center_y + 100)) begin
-                draw_maze = COLOR_MAZE;
+        // S - Fourth letter (GREEN) - Proper pixelized S with double lines - FIXED (same as third)
+        if (px >= letter_start_x + 1080 && px < letter_start_x + 1080 + letter_width && py >= center_y - 300 && py < center_y + 300) begin
+            // Outer S shape - corrected
+            if ((px >= letter_start_x + 1080 && px < letter_start_x + 1080 + thickness_outer && py >= center_y - 300 && py < center_y - 10) ||  // Top left vertical (outer)
+                (px >= letter_start_x + 1080 + thickness_outer && px < letter_start_x + 1080 + letter_width && py >= center_y - 300 && py < center_y - 300 + thickness_outer) ||  // Top horizontal (outer)
+                (px >= letter_start_x + 1080 + letter_width - thickness_outer && px < letter_start_x + 1080 + letter_width && py >= center_y - 300 + thickness_outer && py < center_y - 10) ||  // Top right vertical (outer)
+                (px >= letter_start_x + 1080 && px < letter_start_x + 1080 + letter_width && py >= center_y - 10 && py < center_y - 10 + thickness_outer) ||  // Middle horizontal (outer)
+                (px >= letter_start_x + 1080 && px < letter_start_x + 1080 + thickness_outer && py >= center_y - 10 + thickness_outer && py < center_y + 300 - thickness_outer) ||  // Bottom left vertical (outer)
+                (px >= letter_start_x + 1080 + letter_width - thickness_outer && px < letter_start_x + 1080 + letter_width && py >= center_y - 10 + thickness_outer && py < center_y + 300) ||  // Bottom right vertical (outer)
+                (px >= letter_start_x + 1080 && px < letter_start_x + 1080 + letter_width - thickness_outer && py >= center_y + 300 - thickness_outer && py < center_y + 300)) begin  // Bottom horizontal (outer)
+                draw_maze = COLOR_LETTER_S2;  // GREEN
+            end
+            // Inner S shape (double-line effect)
+            else if ((px >= letter_start_x + 1080 + thickness_outer && px < letter_start_x + 1080 + 2*thickness_outer && py >= center_y - 300 + thickness_outer && py < center_y - 10 - thickness_inner) ||  // Top left vertical (inner)
+                     (px >= letter_start_x + 1080 + 2*thickness_outer && px < letter_start_x + 1080 + letter_width - thickness_outer && py >= center_y - 300 + thickness_outer && py < center_y - 300 + 2*thickness_outer) ||  // Top horizontal (inner)
+                     (px >= letter_start_x + 1080 + letter_width - 2*thickness_outer && px < letter_start_x + 1080 + letter_width - thickness_outer && py >= center_y - 300 + 2*thickness_outer && py < center_y - 10) ||  // Top right vertical (inner)
+                     (px >= letter_start_x + 1080 + thickness_outer && px < letter_start_x + 1080 + letter_width - thickness_outer && py >= center_y - 10 + thickness_outer && py < center_y - 10 + 2*thickness_outer) ||  // Middle horizontal (inner)
+                     (px >= letter_start_x + 1080 + thickness_outer && px < letter_start_x + 1080 + 2*thickness_outer && py >= center_y - 10 + 2*thickness_outer && py < center_y + 300 - 2*thickness_outer) ||  // Bottom left vertical (inner)
+                     (px >= letter_start_x + 1080 + letter_width - 2*thickness_outer && px < letter_start_x + 1080 + letter_width - thickness_outer && py >= center_y - 10 + 2*thickness_outer && py < center_y + 300 - thickness_outer) ||  // Bottom right vertical (inner)
+                     (px >= letter_start_x + 1080 + thickness_outer && px < letter_start_x + 1080 + letter_width - 2*thickness_outer && py >= center_y + 300 - 2*thickness_outer && py < center_y + 300 - thickness_outer)) begin  // Bottom horizontal (inner)
+                draw_maze = COLOR_LETTER_S2;  // GREEN
             end
         end
     end
 endfunction
 
-// Function to draw Pac-Man
+// Function to draw Pac-Man (bigger, circle with triangle mouth - ANIMATED)
 function [23:0] draw_pacman;
     input [10:0] px, py;  // Pixel coordinates
     input [10:0] pac_x, pac_y;  // Pac-Man center X, Y
-    input [7:0]  mouth_angle;  // Mouth opening angle (0-63)
-    reg [10:0] rel_x, rel_y;
+    input [7:0]  mouth_angle;  // Mouth opening angle (0-63, used to scale mouth)
+    reg signed [11:0] rel_x, rel_y;
     reg [10:0] abs_x, abs_y;
-    reg [11:0] dist_sq;
-    reg [7:0] angle;
+    reg [13:0] dist_sq;
+    reg signed [11:0] mouth_slope;  // Mouth slope based on angle
     begin
-        if (px >= pac_x) begin
-            rel_x = px - pac_x;
-            abs_x = px - pac_x;
+        rel_x = px - pac_x;
+        rel_y = py - pac_y;
+        
+        if (rel_x >= 0) begin
+            abs_x = rel_x;
         end else begin
-            rel_x = pac_x - px;
-            abs_x = pac_x - px;
+            abs_x = -rel_x;
         end
         
-        if (py >= pac_y) begin
-            rel_y = py - pac_y;
-            abs_y = py - pac_y;
+        if (rel_y >= 0) begin
+            abs_y = rel_y;
         end else begin
-            rel_y = pac_y - py;
-            abs_y = pac_y - py;
+            abs_y = -rel_y;
         end
         
-        // Pac-Man is roughly 30x30 pixels
-        if (abs_x > 15 || abs_y > 15) begin
-            draw_pacman = 24'h0;  // Transparent
-        end else begin
-            dist_sq = abs_x * abs_x + abs_y * abs_y;
-            
-            // Draw circle
-            if (dist_sq < 225) begin  // 15^2 = 225
-                // Mouth opens to the right (positive X)
-                // Mouth opens symmetrically up and down
-                // mouth_angle: 0 = closed, 32 = half open, 63 = fully open
-                if (rel_x > 0) begin
-                    // Right side - check if in mouth opening
-                    // Mouth opens symmetrically: exclude pixels where abs(rel_y) < mouth_angle/2
-                    if (abs_y < (mouth_angle >> 1)) begin
-                        // This pixel is in the mouth opening - don't draw
-                        draw_pacman = 24'h0;
-                    end else begin
-                        draw_pacman = COLOR_PACMAN;
-                    end
+        // Pac-Man is bigger: 60x60 pixels (radius = 30)
+        dist_sq = rel_x * rel_x + rel_y * rel_y;
+        
+        // Draw circle (radius = 30)
+        if (dist_sq < 900) begin  // 30^2 = 900
+            // Triangle mouth: opens to the right, angle controlled by mouth_angle
+            // mouth_angle: 0 = closed, 63 = wide open
+            // Mouth slope = mouth_angle / 64 (approximately)
+            if (rel_x > 0) begin
+                // Triangle mouth: check if abs(rel_y) < rel_x * (mouth_angle/64)
+                // For efficiency: abs_y * 64 < rel_x * mouth_angle
+                if ((abs_y << 6) < (rel_x * mouth_angle)) begin  // Inside triangle mouth
+                    draw_pacman = 24'h0;  // Inside mouth - don't draw
                 end else begin
-                    // Left side - always draw
                     draw_pacman = COLOR_PACMAN;
                 end
             end else begin
-                draw_pacman = 24'h0;
+                // Left side - always draw (no mouth)
+                draw_pacman = COLOR_PACMAN;
             end
+        end else begin
+            draw_pacman = 24'h0;  // Transparent (outside circle)
         end
     end
 endfunction
 
-// Function to draw ghosts with letters
+// Function to draw ghosts with proper shape (half circle on top, waves underneath, eyes)
 function [23:0] draw_ghost;
     input [10:0] px, py;  // Pixel coordinates
     input [10:0] gx, gy;  // Ghost center X, Y
     input [23:0] ghost_color;  // Ghost color
-    input [7:0]  letter;  // Letter to display (R, O, S, S)
     reg [10:0] rel_x, rel_y;
     reg [10:0] abs_x, abs_y;
+    reg signed [10:0] signed_rel_x, signed_rel_y;
+    reg [11:0] dist_sq;
     begin
         if (px >= gx) begin
             rel_x = px - gx;
             abs_x = px - gx;
+            signed_rel_x = px - gx;
         end else begin
             rel_x = gx - px;
             abs_x = gx - px;
+            signed_rel_x = -(gx - px);
         end
         
         if (py >= gy) begin
             rel_y = py - gy;
             abs_y = py - gy;
+            signed_rel_y = py - gy;
         end else begin
             rel_y = gy - py;
             abs_y = gy - py;
+            signed_rel_y = -(gy - py);
         end
         
-        // Ghost is roughly 30x30 pixels (smaller)
-        if (abs_x > 15 || abs_y > 15) begin
-            draw_ghost = 24'h0;  // Transparent
-        end else begin
-            // Ghost body - proper Pac-Man ghost shape
-            // Rounded top (semi-circle)
-            if (abs_y < 10) begin
-                // Top rounded part
-                if (abs_x * abs_x + (abs_y - 10) * (abs_y - 10) < 100) begin
+        draw_ghost = 24'h0;  // Transparent by default
+        
+        // Ghost is roughly 40x50 pixels (bigger)
+        if (abs_x <= 20 && abs_y <= 25) begin
+            // Top half circle (abs_y < 20)
+            if (signed_rel_y < -5) begin
+                // Calculate distance from center for rounded top
+                dist_sq = abs_x * abs_x + (signed_rel_y + 5) * (signed_rel_y + 5);
+                if (dist_sq < 400) begin  // 20^2 = 400
                     draw_ghost = ghost_color;
                 end
-            end else begin
-                // Rectangular body with wavy bottom
-                // Wavy bottom pattern: indent every 4 pixels
-                if (abs_y < 15) begin
-                    // Regular body
+            end
+            // Rectangular body (abs_y >= -5 and < 20)
+            else if (signed_rel_y >= -5 && signed_rel_y < 20) begin
+                if (abs_x <= 20) begin
                     draw_ghost = ghost_color;
-                end else begin
-                    // Wavy bottom - create indent pattern
-                    if ((abs_x % 4) < 2) begin
-                        draw_ghost = ghost_color;
-                    end else begin
-                        draw_ghost = 24'h0;  // Indent
-                    end
                 end
             end
-            // Ghost eyes (two white circles)
-            if ((abs_x >= 4 && abs_x < 7 && abs_y >= 4 && abs_y < 7) ||
-                (abs_x >= 8 && abs_x < 11 && abs_y >= 4 && abs_y < 7)) begin
-                draw_ghost = 24'hFF_FF_FF;  // White eyes
-            end
-            // Eye pupils
-            if ((abs_x >= 5 && abs_x < 6 && abs_y >= 5 && abs_y < 6) ||
-                (abs_x >= 9 && abs_x < 10 && abs_y >= 5 && abs_y < 6)) begin
-                draw_ghost = 24'h00_00_00;  // Black pupils
+            // Wavy bottom (abs_y >= 20 and <= 25)
+            else if (signed_rel_y >= 20 && signed_rel_y <= 25) begin
+                // Create wave pattern: 5 waves
+                if ((signed_rel_x >= -20 && signed_rel_x < -12 && signed_rel_y >= 20 && signed_rel_y < 22) ||
+                    (signed_rel_x >= -12 && signed_rel_x < -4 && signed_rel_y >= 20 && signed_rel_y < 24) ||
+                    (signed_rel_x >= -4 && signed_rel_x < 4 && signed_rel_y >= 20 && signed_rel_y < 25) ||
+                    (signed_rel_x >= 4 && signed_rel_x < 12 && signed_rel_y >= 20 && signed_rel_y < 24) ||
+                    (signed_rel_x >= 12 && signed_rel_x < 20 && signed_rel_y >= 20 && signed_rel_y < 22)) begin
+                    draw_ghost = ghost_color;
+                end
             end
             
-            // Draw letter at bottom right of ghost (smaller, visible)
-            // Position: bottom right corner (abs_x: 8-14, abs_y: 10-15)
-            if (abs_y >= 10 && abs_y < 15 && abs_x >= 8 && abs_x < 15) begin
-                case (letter)
-                    8'h52: begin  // R (smaller, bottom right)
-                        if ((abs_x >= 8 && abs_x < 9 && abs_y >= 10 && abs_y < 14) ||
-                            (abs_x >= 9 && abs_x < 11 && abs_y >= 10 && abs_y < 11) ||
-                            (abs_x >= 9 && abs_x < 11 && abs_y >= 12 && abs_y < 13) ||
-                            (abs_x >= 11 && abs_x < 12 && abs_y >= 10 && abs_y < 12) ||
-                            (abs_x >= 9 && abs_x < 10 && abs_y >= 13 && abs_y < 14)) begin
-                            draw_ghost = 24'hFF_FF_FF;  // White letter
-                        end
-                    end
-                    8'h4F: begin  // O (smaller, bottom right)
-                        if ((abs_x >= 8 && abs_x < 9 && abs_y >= 10 && abs_y < 14) ||
-                            (abs_x >= 11 && abs_x < 12 && abs_y >= 10 && abs_y < 14) ||
-                            (abs_x >= 9 && abs_x < 11 && abs_y >= 10 && abs_y < 11) ||
-                            (abs_x >= 9 && abs_x < 11 && abs_y >= 13 && abs_y < 14)) begin
-                            draw_ghost = 24'hFF_FF_FF;
-                        end
-                    end
-                    8'h53: begin  // S (smaller, bottom right)
-                        if ((abs_x >= 8 && abs_x < 9 && abs_y >= 10 && abs_y < 12) ||
-                            (abs_x >= 8 && abs_x < 11 && abs_y >= 10 && abs_y < 11) ||
-                            (abs_x >= 8 && abs_x < 11 && abs_y >= 12 && abs_y < 13) ||
-                            (abs_x >= 11 && abs_x < 12 && abs_y >= 13 && abs_y < 14) ||
-                            (abs_x >= 8 && abs_x < 11 && abs_y >= 13 && abs_y < 14)) begin
-                            draw_ghost = 24'hFF_FF_FF;
-                        end
-                    end
-                endcase
+            // Ghost eyes (two white ovals)
+            if (((signed_rel_x >= -12 && signed_rel_x <= -6) && (signed_rel_y >= -10 && signed_rel_y <= -4)) ||
+                ((signed_rel_x >= 6 && signed_rel_x <= 12) && (signed_rel_y >= -10 && signed_rel_y <= -4))) begin
+                draw_ghost = 24'hFF_FF_FF;  // White eyes
+            end
+            
+            // Eye pupils (black dots)
+            if (((signed_rel_x >= -10 && signed_rel_x <= -8) && (signed_rel_y >= -8 && signed_rel_y <= -6)) ||
+                ((signed_rel_x >= 8 && signed_rel_x <= 10) && (signed_rel_y >= -8 && signed_rel_y <= -6))) begin
+                draw_ghost = 24'h00_00_00;  // Black pupils
             end
         end
     end
 endfunction
 
-// Static positions (no animation)
-wire [23:0] maze_color;
-wire [23:0] ghost_color [0:3];
-wire [23:0] pacman_color;
-wire [23:0] dot_color;
-wire [10:0] ghost_x [0:3];
-wire [10:0] ghost_y_static, pacman_y_static;
-// Position ghosts above the logo (static)
-assign ghost_x[0] = 960 - 300 + 60;   // R
-assign ghost_x[1] = 960 - 300 + 200;  // O
-assign ghost_x[2] = 960 - 300 + 340;  // S
-assign ghost_x[3] = 960 - 300 + 480;  // S
-assign ghost_y_static = 540 - 150;  // Above logo, static
-assign pacman_y_static = 540 + 200;  // Below logo, static
-assign maze_color = draw_maze(HCNT, VCNT, 0);  // No offset
-assign ghost_color[0] = draw_ghost(HCNT, VCNT, ghost_x[0], ghost_y_static, COLOR_GHOST_R, 8'h52);  // R
-assign ghost_color[1] = draw_ghost(HCNT, VCNT, ghost_x[1], ghost_y_static, COLOR_GHOST_O1, 8'h4F);  // O
-assign ghost_color[2] = draw_ghost(HCNT, VCNT, ghost_x[2], ghost_y_static, COLOR_GHOST_S1, 8'h53);  // S
-assign ghost_color[3] = draw_ghost(HCNT, VCNT, ghost_x[3], ghost_y_static, COLOR_GHOST_S2, 8'h53);  // S
-assign pacman_color = draw_pacman(HCNT, VCNT, 960 - 350, pacman_y_static, 8'd32);  // Pac-Man static, mouth half-open
+// Animated Pac-Man position and mouth - with animation
+wire [10:0] pacman_x_pos;
+wire signed [11:0] pacman_x_base;
+assign pacman_x_base = 960 - 400;  // Base X position (more centered)
+assign pacman_x_pos = pacman_x_base + pacman_x_offset;  // Animated X position
 
-// Function to draw dots/pellets (simple white dots)
+// Position 5 ghosts above the HUGE logo (EQUALLY spaced across the screen)
+assign ghost_x[0] = 960 - 700 + 160;   // Blue ghost (above R)
+assign ghost_x[1] = 960 - 700 + 440;   // Red ghost (above O)  
+assign ghost_x[2] = 960 - 700 + 720;   // Pink ghost (between O and S1)
+assign ghost_x[3] = 960 - 700 + 1000;  // Green ghost (above first S)
+assign ghost_x[4] = 960 - 700 + 1280;  // Purple ghost (above second S)
+assign ghost_y_static = 540 - 400;  // Above HUGE logo, higher up
+assign pacman_y_static = 540 + 420;  // Below HUGE logo, lower down
+assign maze_color = draw_maze(HCNT, VCNT, 0);  // No offset
+assign ghost_color[0] = draw_ghost(HCNT, VCNT, ghost_x[0], ghost_y_static, COLOR_GHOST_BLUE);   // Blue
+assign ghost_color[1] = draw_ghost(HCNT, VCNT, ghost_x[1], ghost_y_static, COLOR_GHOST_RED);    // Red
+assign ghost_color[2] = draw_ghost(HCNT, VCNT, ghost_x[2], ghost_y_static, COLOR_GHOST_PINK);   // Pink
+assign ghost_color[3] = draw_ghost(HCNT, VCNT, ghost_x[3], ghost_y_static, COLOR_GHOST_GREEN);  // Green
+assign ghost_color[4] = draw_ghost(HCNT, VCNT, ghost_x[4], ghost_y_static, COLOR_GHOST_PURPLE); // Purple
+assign pacman_color = draw_pacman(HCNT, VCNT, pacman_x_pos, pacman_y_static, pacman_mouth_angle);  // Pac-Man ANIMATED
+
+// Function to draw dots/pellets (BIGGER white dots, including inside letter voids)
 function [23:0] draw_dots;
     input [10:0] px, py;  // Pixel coordinates
     input [23:0] maze_pixel;  // Maze color at this pixel
+    reg [10:0] center_x, center_y;
+    reg [10:0] letter_start_x;
+    reg in_letter_void;
     begin
-        // Draw small white dots in empty spaces (not on maze walls)
-        if (maze_pixel == 24'h0 &&  // Not a wall
-            px >= 100 && px < 1820 &&  // Within bounds
-            py >= 100 && py < 980 &&
-            (px % 40 >= 0 && px % 40 < 2) &&  // Small dots every 40 pixels
-            (py % 40 >= 0 && py % 40 < 2)) begin
+        center_x = 960;
+        center_y = 540;
+        letter_start_x = center_x - 700;
+        in_letter_void = 0;
+        
+        // Check if we're inside a letter void (between double lines)
+        // R void area
+        if (px > letter_start_x + 40 && px < letter_start_x + 280 && py > center_y - 280 && py < center_y + 280) begin
+            in_letter_void = 1;
+        end
+        // O void area
+        if (px > letter_start_x + 360 + 40 && px < letter_start_x + 360 + 280 && py > center_y - 280 && py < center_y + 280) begin
+            in_letter_void = 1;
+        end
+        // First S void area
+        if (px > letter_start_x + 720 + 40 && px < letter_start_x + 720 + 280 && py > center_y - 280 && py < center_y + 280) begin
+            in_letter_void = 1;
+        end
+        // Second S void area
+        if (px > letter_start_x + 1080 + 40 && px < letter_start_x + 1080 + 280 && py > center_y - 280 && py < center_y + 280) begin
+            in_letter_void = 1;
+        end
+        
+        // Draw BIGGER white dots (6x6 pixels) in empty spaces and inside letter voids
+        if ((maze_pixel == 24'h0 || in_letter_void) &&  // Not a wall OR inside letter void
+            px >= 80 && px < 1840 &&  // Within bounds
+            py >= 80 && py < 1000 &&
+            (px % 50 >= 22 && px % 50 < 28) &&  // Bigger dots every 50 pixels (6 pixels wide)
+            (py % 50 >= 22 && py % 50 < 28)) begin  // 6 pixels tall
             draw_dots = 24'hFF_FF_FF;  // White dot
         end else begin
             draw_dots = 24'h0;  // Transparent
@@ -435,6 +540,7 @@ always @(posedge clk_i) begin
         frame_counter <= 26'd0;
         maze_offset_y <= 11'd0;
         pacman_mouth_angle <= 8'd0;
+        pacman_x_offset <= 11'd0;
         for (j = 0; j < NUM_SNOWFLAKES; j = j + 1) begin
             snowflake_x[j] <= (j * 160) % 1920;  // Distribute across screen
             snowflake_y[j] <= (j * 90) % 1080;   // Stagger vertically
@@ -468,8 +574,25 @@ always @(posedge clk_i) begin
             // No maze animation - static
             maze_offset_y <= 11'd0;
             
-            // No Pac-Man mouth animation - static
-            pacman_mouth_angle <= 8'd32;  // Half-open mouth, static
+            // Animate Pac-Man mouth (open/close cycle)
+            // Mouth opens and closes smoothly: 0 -> 63 -> 0
+            if (frame_counter[5:0] < 32) begin
+                pacman_mouth_angle <= frame_counter[5:0] << 1;  // Opening: 0 to 63
+            end else begin
+                pacman_mouth_angle <= (63 - frame_counter[5:0]) << 1;  // Closing: 63 to 0
+            end
+            
+            // Animate Pac-Man horizontal movement (slow left-right: +/-10 pixels)
+            // Use sine-like approximation: move 10px left and right over ~128 frames
+            if (frame_counter[7:0] < 64) begin
+                pacman_x_offset <= (frame_counter[7:0] * 10) / 64;  // Move right: 0 to +10
+            end else if (frame_counter[7:0] < 128) begin
+                pacman_x_offset <= 10 - ((frame_counter[7:0] - 64) * 10) / 64;  // Back to 0
+            end else if (frame_counter[7:0] < 192) begin
+                pacman_x_offset <= -((frame_counter[7:0] - 128) * 10) / 64;  // Move left: 0 to -10
+            end else begin
+                pacman_x_offset <= -10 + ((frame_counter[7:0] - 192) * 10) / 64;  // Back to 0
+            end
             
             // Animate snowflakes
             for (j = 0; j < NUM_SNOWFLAKES; j = j + 1) begin
@@ -492,8 +615,8 @@ always @(posedge clk_i) begin
         // Draw background (black like classic Pac-Man)
         vid_rgb_d1 <= 24'h00_00_00;  // Black background
         
-        // Draw dots/pellets first (behind everything)
-        if (dot_color != 24'h0) begin
+        // Draw dots/pellets first (behind everything, but NOT on Pac-Man!)
+        if (dot_color != 24'h0 && pacman_color == 24'h0) begin  // Only draw dots where Pac-Man is NOT
             vid_rgb_d1 <= dot_color;
         end
         
@@ -507,8 +630,8 @@ always @(posedge clk_i) begin
             vid_rgb_d1 <= pacman_color;
         end
         
-        // Draw ghosts with letters (static, on top of maze)
-        for (j = 0; j < 4; j = j + 1) begin
+        // Draw 5 ghosts (static, on top of maze)
+        for (j = 0; j < 5; j = j + 1) begin
             if (ghost_color[j] != 24'h0) begin
                 vid_rgb_d1 <= ghost_color[j];
             end
