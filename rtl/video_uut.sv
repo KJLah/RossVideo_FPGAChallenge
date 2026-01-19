@@ -76,6 +76,16 @@ localparam [23:0] COLOR_GHOST_GREEN  = 24'h00_FF_00;  // Green ghost
 localparam [23:0] COLOR_GHOST_PURPLE = 24'h80_00_FF;  // Purple ghost
 localparam [23:0] COLOR_PACMAN    = 24'hFF_FF_00;  // Yellow Pac-Man
 
+// Track pixel position
+reg [10:0] pixel_x, pixel_y;
+
+// Animation counter (counts frames for slow animation)
+reg [25:0] frame_counter;
+
+// Box position (will move)
+reg [10:0] box_x, box_y;
+reg        box_dir_x, box_dir_y;  // Direction: 1 or 0
+
 reg [23:0]  vid_rgb_d1;
 reg [2:0]   dvh_sync_d1;
 
