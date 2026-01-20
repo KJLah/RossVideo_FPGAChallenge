@@ -403,8 +403,9 @@ function [23:0] draw_pacman;
     input [7:0]  mouth_angle;  // Mouth opening angle (0-63, used to scale mouth)
     reg signed [11:0] rel_x, rel_y;
     reg [10:0] abs_x, abs_y;
-    reg [13:0] dist_sq;
+    reg [31:0] dist_sq;  // FIXED: Widened from [13:0] to [31:0] to prevent overflow
     reg signed [11:0] mouth_slope;  // Mouth slope based on angle
+    reg [31:0] mouth_check;  // Temporary for mouth calculation
     begin
         rel_x = px - pac_x;
         rel_y = py - pac_y;
@@ -422,6 +423,7 @@ function [23:0] draw_pacman;
         end
         
         // Pac-Man is bigger: 60x60 pixels (radius = 30)
+        // FIXED: dist_sq now properly handles full 24-bit result from multiplication
         dist_sq = rel_x * rel_x + rel_y * rel_y;
         
         // Draw circle (radius = 30)
@@ -432,7 +434,9 @@ function [23:0] draw_pacman;
             if (rel_x > 0) begin
                 // Triangle mouth: check if abs(rel_y) < rel_x * (mouth_angle/64)
                 // For efficiency: abs_y * 64 < rel_x * mouth_angle
-                if ((abs_y << 6) < (rel_x * mouth_angle)) begin  // Inside triangle mouth
+                // FIXED: Proper signed multiplication to avoid tool-dependent width issues
+                mouth_check = $signed(rel_x) * $signed({1'b0, mouth_angle});
+                if ((abs_y << 6) < mouth_check) begin  // Inside triangle mouth
                     draw_pacman = 24'h0;  // Inside mouth - don't draw
                 end else begin
                     draw_pacman = COLOR_PACMAN;
